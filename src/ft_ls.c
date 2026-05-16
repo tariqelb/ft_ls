@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 00:35:15 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/15 17:17:17 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/17 00:58:17 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ int	main(int ac, char **av)
 	ft_get_files_and_check_errors(data.args, &data);
 	printf("check dir\n");
 	ft_get_paths_and_check_errors(data.args, &data);
+	printf("end of check dir\n");
 	i = 0;
 
 	if ((ft_count_args(data) == 0 && ac > 1) || (ac > 1 && data.opt.nbr_of_opt == ft_count_args(data)))
@@ -51,7 +52,6 @@ int	main(int ac, char **av)
 		return (1);
 	}
 	printf("counter %d %d %d\n", data.paths.nbr_of_paths, data.files.nbr_of_files, data.opt.nbr_of_opt);
-	return (0);
 	i = 0;
 	while (i < data.paths.nbr_of_paths)
 	{
@@ -74,5 +74,7 @@ int	main(int ac, char **av)
 		printf("options total  :[%d]\n",  data.opt.nbr_of_opt);
 		i++;
 	}
+	ft_start_listing(&data);
+	ft_display_short_format(&data);
 	return (0);
 }

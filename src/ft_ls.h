@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 00:24:48 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/15 16:20:20 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/17 00:55:03 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,17 +35,18 @@ typedef struct	s_options
 	short	nbr_of_opt;
 }		t_options;
 
-typedef struct	s_format
+typedef struct	s_long_format
 {
-	char	permission[11];
-	size_t	links;
-	char	user[33];//limit 32
-	char	grop[33];//limit 32
-	size_t	size;
-	char	time[13];
-	char	filename[256];//limit 255
-	char	prnt_dit[256];//limit 255
-}		t_format;
+	char		permission[11];
+	size_t		links;
+	char		user[33];//limit 32
+	char		grop[33];//limit 32
+	size_t		size;
+	char		time[13];
+	char		filename[256];//limit 255
+	char		prnt_dit[256];//limit 255
+	struct s_long_format	*next;
+}		t_long_format;
 
 typedef struct	s_path
 {
@@ -59,13 +60,20 @@ typedef struct	s_files
 		int	nbr_of_files;
 }		t_file;
 
+typedef struct	s_short_format
+{
+	void			*data;
+	struct s_short_format	*next;
+}		t_short_format;
+
 typedef struct	s_data
 {
 		char		**args;
 		t_path		paths;
 		t_file		files;
 		t_options	opt;
-		t_format	*lng_format;	
+		t_short_format	*shrt_format;
+		t_long_format	*lng_format;	
 }		t_data;
 
 //File : ft_ls.c
@@ -94,11 +102,48 @@ int     ft_loop_over_options(int ac, char **av, t_data *data);
 //File : ft_ls_utils_one.c
 char    *ft_strdup(char *s);
 size_t  ft_strlen(char *s);
+char    *ft_strcpy(char *dest, const char *src);
 
 //File : ft_copy_delete_args.c
 int ft_copy_args(int ac, char **av, t_data *data);
 int ft_remove_arg(t_data *data, int index);
 
+
+//File: ft_ls_struct_utils.c
+t_short_format	*ft_add_new(void *data, size_t size);
+void	ft_push_back(t_short_format **head, t_short_format *new_node);
+void	ft_delete_all(t_short_format **head);
+
+//File: ft_ls_struct_utils_two.c
+void    ft_free_long_format(t_long_format *lst);
+void    ft_long_add_back(t_long_format **lst, t_long_format *new_node);
+t_long_format   *ft_new_long_node(t_data *data, int i, struct stat st);
+
+
+//File : ft_fill_permissions.c
+void    ft_perm_type(char *perm, mode_t mode);
+void    ft_perm_user(char *perm, mode_t mode);
+void    ft_perm_group(char *perm, mode_t mode);
+void    ft_perm_other(char *perm, mode_t mode);
+void    ft_fill_permissions(char *perm, mode_t mode);
+
+//File: ft_list_files.c
+int     ft_get_long_format(t_data *data, int f_index, struct stat st);
+int     ft_get_short_format(t_data *data, int f_index);
+int     ft_list_single_file(t_data *data, int f_index);
+int     ft_list_files(t_data *data);
+
+
+//File: ft_start_listing.c
+int     ft_start_listing(t_data *data);
+
+//File: ft_get_time_and_owner.c 
+void	ft_fill_time(char *dest, time_t t);
+void	ft_fill_owner(t_long_format *fmt, struct stat *st);
+
+//File: ft_display_format.c
+void	ft_display_long_format(t_data *data);
+void    ft_display_short_format(t_data *data);
 
 //----------------ft_printf
 

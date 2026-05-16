@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:32:02 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/15 20:11:13 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/17 00:35:38 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	ft_display_error(int err, char *av, t_data *data, int i)
 {
+	printf("ft_display_error\n");
 	if (err == 1)
 	{
 		ft_putstr_std("ft_ls: cannot access '", 2);
@@ -35,6 +36,7 @@ static int	ft_display_error(int err, char *av, t_data *data, int i)
 
 int 	ft_check_if_its_a_dir(char *av, t_data *data, int i)
 {
+	printf("ft_check_if_its_a_dir\n");
 	struct stat st;
 
 	if (stat(av, &st) != 0)
@@ -47,18 +49,24 @@ int 	ft_check_if_its_a_dir(char *av, t_data *data, int i)
 		if (ft_strlen(av) < 4097)
 			return (0);
 		else
-			ft_display_error(3, av, data, i);
+			return (ft_display_error(3, av, data, i));
 	}
-	return (1);
+	else 
+		return (-1);
+	return (0);
 }
 
 
 int	ft_check_this_arg_is_valid_path(t_data *data, char *av, int index)
 {
+	printf("ft_check_this_arg_is_valid_path\n");
 	char    **new_paths;
 	int     i;
 
-	if (ft_check_if_its_a_dir(av, data, index))
+	i = ft_check_if_its_a_dir(av, data, index);
+	if (i == -1)
+		return (0);
+	else if (i == 1)
 		return (1);
 	if (access(av, F_OK) != 0)
 		return (ft_display_error(1, av, data, index));
@@ -85,6 +93,7 @@ int	ft_check_this_arg_is_valid_path(t_data *data, char *av, int index)
 
 int	ft_get_paths_and_check_errors(char **av, t_data *data)
 {
+	printf("ft_get_paths_and_check_errors\n");
 	int i;
 
 	i = 0;
