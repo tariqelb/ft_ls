@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 00:49:04 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/17 00:54:45 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/21 03:13:25 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,38 +26,33 @@ void ft_display_long_format(t_data *data)
 
     while (tmp)
     {
-        // permissions
+        write(1, tmp->prnt_dir, ft_strlen(tmp->prnt_dir));
+        write(1, " ", 1);
+
         write(1, tmp->permission, 10);
         write(1, " ", 1);
 
-        // links
-        printf("%zu ", tmp->links);
+        ft_put_size_t(tmp->links, 1);
+        write(1, " ", 1);
 
-        // user
         write(1, tmp->user, ft_strlen(tmp->user));
         write(1, " ", 1);
 
-        // group
         write(1, tmp->grop, ft_strlen(tmp->grop));
         write(1, " ", 1);
 
-        // size
-        printf("%zu ", tmp->size);
+        ft_put_size_t(tmp->size, 1);
+        write(1, " ", 1);
 
-        // time
         write(1, tmp->time, ft_strlen(tmp->time));
         write(1, " ", 1);
 
-        // filename
         write(1, tmp->filename, ft_strlen(tmp->filename));
-
-        // newline
         write(1, "\n", 1);
 
         tmp = tmp->next;
     }
 }
-
 /*
 ** Display linked list in short format like ls
 */
@@ -75,6 +70,8 @@ void	ft_display_short_format(t_data *data)
     {
         name = (char *)tmp->data;
 
+	write(1, tmp->prnt_dir, ft_strlen(tmp->prnt_dir));
+        write(1, " ", 1);
         write(1, name, ft_strlen(name));
 
         if (tmp->next)

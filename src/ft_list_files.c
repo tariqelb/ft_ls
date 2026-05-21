@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 00:00:14 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/17 00:44:10 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/21 03:35:28 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,21 +14,25 @@
 
 int	ft_get_long_format(t_data *data, int f_index, struct stat st)
 {
-	printf("ft_get_long_format\n");
+	//printf("ft_get_long_format\n");
 	//[permissions] [links] [user] [group] [size] [time] [filename]
 	t_long_format	*new_file;
+	char		*prnt_dir;
 
-	new_file = ft_new_long_node(data, f_index, st);
+	prnt_dir = ft_get_dir_path(data->files.file[f_index]);
+	new_file = ft_new_long_node(data, f_index, st, prnt_dir);
 	ft_long_add_back(&data->lng_format, new_file);
 	return (0);
 }
 
-int	ft_get_short_format(t_data *data, int f_index)
+int	ft_get_short_format(t_data *data, int f_index, struct stat st)
 {
-	printf("ft_get_short_format\n");
+	//printf("ft_get_short_format\n");
 	t_short_format	*new_file;
-	
-	new_file = ft_add_new(data->files.file[f_index], ft_strlen(data->files.file[f_index]));
+	char		*prnt_dir;
+
+	prnt_dir = ft_get_dir_path(data->files.file[f_index]);
+	new_file = ft_add_new(data->files.file[f_index], ft_strlen(data->files.file[f_index]), st, prnt_dir);
 	ft_push_back(&data->shrt_format, new_file);	
 	return (0);
 }
@@ -43,7 +47,7 @@ int	ft_get_short_format(t_data *data, int f_index)
 */
 int	ft_list_single_file(t_data *data, int f_index)
 {
-	printf("ft_list_single_file:  \n");	
+	//printf("ft_list_single_file:  \n");	
 	struct stat st;
 
 	/* Step 1: call lstat on the file path */
@@ -67,7 +71,7 @@ int	ft_list_single_file(t_data *data, int f_index)
 	else
 	{
 	    /* Step 5: fill short format (just filename usually) */
-	    if (ft_get_short_format(data, f_index))
+	    if (ft_get_short_format(data, f_index, st))
 		return (1);
 	}
 
@@ -79,7 +83,7 @@ int	ft_list_files(t_data *data)
 {
 	int	i;
 
-	printf("ft_list_files nbr of files = %d\n", data->files.nbr_of_files);
+	//printf("ft_list_files nbr of files = %d\n", data->files.nbr_of_files);
 	if (data->files.nbr_of_files == 0)
 		return (0);
 	i = 0;
@@ -88,5 +92,11 @@ int	ft_list_files(t_data *data)
 		ft_list_single_file(data, i);	
 		i++;
 	}
+	printf("-------------------**************----------------\n");	
+	/*if (data->opt.op_l_flag)
+		ft_display_long_format(data);
+	else
+		ft_display_short_format(data);*/
+	printf("-------------------**************----------------\n");	
 	return (0);
 }

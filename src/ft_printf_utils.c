@@ -6,11 +6,11 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 00:52:57 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/11 02:01:33 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/17 23:07:55 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "ft_ls.h"
+#include "./ft_ls.h"
 
 int     ft_putstr_std(char *str, int std)
 {
