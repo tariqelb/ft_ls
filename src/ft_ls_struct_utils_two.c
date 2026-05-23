@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 23:24:26 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/21 03:39:15 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/22 01:16:56 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ t_long_format   *ft_new_long_node_dir(t_data *data, char *entry_name, struct sta
 
 t_long_format *ft_new_long_node(t_data *data, int i, struct stat st, char *prnt_dir)
 {
-	printf("ft_new_long_node\n");
+	//printf("ft_new_long_node\n");
 	t_long_format *node;
 	int j;
 
@@ -106,6 +106,35 @@ void	ft_long_add_back(t_long_format **node, t_long_format *new_node)
 	{
 		tmp = tmp->next;
 	}
+	tmp->next = new_node;
+}
+
+void	ft_long_add_back_at(t_long_format **node, t_long_format *new_node, int push_at)
+{
+//	printf("ft_long_add_back\n");
+	t_long_format	*tmp;
+	int		i;
+
+	i = 0;
+	if (!node || !new_node)
+		return;
+
+	new_node->next = NULL;
+
+	// ✅ correct empty list check
+	if (*node == NULL)
+	{
+		*node = new_node;
+		return;
+	}
+
+	tmp = *node;
+	while (tmp->next && i < push_at)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	new_node->next = tmp->next;
 	tmp->next = new_node;
 }
 

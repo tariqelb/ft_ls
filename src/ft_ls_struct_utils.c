@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 17:18:11 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/21 02:16:59 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/22 01:17:07 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,31 @@ void	ft_push_back(t_short_format **node, t_short_format *new_node)
 	while (tmp->next)
 		tmp = tmp->next;
 
+	tmp->next = new_node;
+}
+
+void	ft_push_back_at(t_short_format **node, t_short_format *new_node, int push_at)
+{
+	t_short_format	*tmp;
+	int		i;
+
+	if (!new_node)
+		return;
+
+	if (!*node)
+	{
+		*node = new_node;
+		return;
+	}
+
+	i = 0;
+	tmp = *node;
+	while (tmp->next && i < push_at)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	new_node->next = tmp->next;
 	tmp->next = new_node;
 }
 

@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 23:57:34 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/21 03:35:04 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/23 18:10:38 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,25 +80,27 @@ int	ft_list_directories(t_data *data)
 	i = 0;
 	while (i < data->paths.nbr_of_paths)
 	{
-		/*if (data->opt.op_l_flag)
+		if (data->opt.op_l_flag)
 			long_len = ft_count_struct_elem_long(data);
 		else
 			short_len = ft_count_struct_elem_short(data);
-		printf("--------------------\n");
+		printf("-------------------- path : [%s]\n", data->paths.path[i]);
 		printf("data before %d %d\n", i, long_len);
 		ft_list_dir(data, i);		
-		printf("data after %d %d\n", i, long_len);
-		if (data->opt.op_l_flag)
-		 	data = ft_sort_long_format(data, long_len);
+		printf("data after %d %d\n", i, ft_count_struct_elem_long(data));
+		if (data->opt.op_l_flag == 0)
+		 	data = ft_sort_short_format(data, short_len);
 		else
-			data = ft_sort_long_format(data, short_len);
-		*/
-		ft_list_dir(data, i);		
+			data = ft_sort_long_format(data, long_len);
+		printf("**********************************************************************\n");
+		if (data->opt.op_l_flag)
+			ft_display_long_format_n_data(data, long_len);
+		else
+			ft_display_short_format_n_data(data, short_len);
+		printf("**********************************************************************\n");
+		
+		//ft_list_dir(data, i);		
 		i++;
 	}
-	/*if (data->opt.op_l_flag)
-		ft_display_long_format(data);
-	else
-		ft_display_short_format(data);*/
 	return (0); 
 }

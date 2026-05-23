@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 00:00:14 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/21 03:35:28 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/23 00:41:16 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ int	ft_get_long_format(t_data *data, int f_index, struct stat st)
 
 	prnt_dir = ft_get_dir_path(data->files.file[f_index]);
 	new_file = ft_new_long_node(data, f_index, st, prnt_dir);
+	//printf("new %s \n", new_file->filename);
 	ft_long_add_back(&data->lng_format, new_file);
 	return (0);
 }
@@ -82,7 +83,6 @@ int	ft_list_single_file(t_data *data, int f_index)
 int	ft_list_files(t_data *data)
 {
 	int	i;
-
 	//printf("ft_list_files nbr of files = %d\n", data->files.nbr_of_files);
 	if (data->files.nbr_of_files == 0)
 		return (0);
@@ -93,10 +93,16 @@ int	ft_list_files(t_data *data)
 		i++;
 	}
 	printf("-------------------**************----------------\n");	
-	/*if (data->opt.op_l_flag)
+	if (data->opt.op_l_flag)
+		ft_sort_long_format(data, 0);
+	else
+		ft_sort_short_format(data, 0);
+	printf("**********************************************************************\n");
+	if (data->opt.op_l_flag)
 		ft_display_long_format(data);
 	else
-		ft_display_short_format(data);*/
+		ft_display_short_format(data);
+	printf("**********************************************************************\n");
 	printf("-------------------**************----------------\n");	
 	return (0);
 }

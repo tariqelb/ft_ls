@@ -6,64 +6,125 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/20 22:00:01 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/21 03:16:12 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/23 20:32:28 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_ls.h"
 
+
+t_data *ft_sort_long_format_all_data(t_data *data)
+{
+	t_long_format *prev;
+	t_long_format *cur;
+	t_long_format *tmp;
+
+	if (!data || !data->lng_format)
+		return (data);
+
+	prev = NULL;
+	cur = data->lng_format;
+
+	while (cur && cur->next)
+	{
+		if (ft_strcmp(cur->filename, cur->next->filename) > 0)
+		{
+			tmp = cur->next;
+
+			// unlink tmp
+			cur->next = tmp->next;
+			tmp->next = cur;
+
+			// 🔥 FIX 1: handle head correctly
+			if (prev == NULL)
+				data->lng_format = tmp;
+			else
+				prev->next = tmp;
+
+			// 🔥 FIX 2: update pointers correctly
+			//prev = tmp;
+			//cur = tmp->next;
+			cur = data->lng_format;
+			prev  = NULL;
+			continue;
+		}
+		else
+		{
+			prev = cur;
+			cur = cur->next;
+		}
+	}
+	return (data);
+}
+
+
 t_data *ft_sort_long_format(t_data *data, int long_len)
 {
-	int				i;
+	int		i;
 	t_long_format	*start;
-	t_long_format	*head;
+	t_long_format	*prev;
 	t_long_format	*cur;
 	t_long_format	*tmp;
 
 	if (!data || !data->lng_format)
 		return (data);
 
-	head = data->lng_format;
+	prev = data->lng_format;
 	start = data->lng_format;
-
+	/*{
+		printf("iter ---\n");
+		t_long_format *t = data->lng_format;
+		while (t)
+		{
+			printf("iter : %s\n", t->filename);
+			t = t->next;
+		}
+		printf("before sort %s %d\n", start->filename, long_len);
+	}*/
+	
 	i = 0;
 	while (start && i < long_len)
 	{
+		//printf("Move [%s]\n ", start->filename);
+		prev = start;
 		start = start->next;
 		i++;
 	}
-
 	if (!start)
 		return (data);
-
 	cur = start;
-
 	while (cur && cur->next)
 	{
+		if (prev->next != cur)
+			prev = prev->next;
 		if (i == 0)
-			head = cur;
-		if (ft_strcmp(cur->filename, cur->next->filename) > 0)
+			prev = cur;
+		if (ft_strcmp(cur->filename, cur->next->filename) > 0 && i == 0)
 		{
+			//printf("sort prob\n");
+			//printf("else c[%s] n{%s} p[%s]\n ", cur->filename, cur->next->filename, prev->filename);
 			tmp = cur->next;
-
-			// swap adjacent nodes safely
 			cur->next = tmp->next;
 			tmp->next = cur;
-
-			// IMPORTANT: if start moved, update start
-			if (cur == start)
-				start = tmp;
-
-			// restart from beginning of sublist
-			cur = start;
+			data->lng_format = tmp;
+			//printf("else c[%s] n{%s} p[%s]\n ", cur->filename, tmp->filename, prev->filename);
+		}
+		else if (ft_strcmp(cur->filename, cur->next->filename) > 0)
+		{
+			//printf("else c[%s] n{%s} p[%s]\n ", cur->filename, cur->next->filename, prev->filename);
+			//[prev][tmp][curr][next][]
+			tmp = cur->next;
+			prev->next = tmp;
+			cur->next = tmp->next;
+			tmp->next = cur;
+			cur = prev->next;
+			prev->next = cur;
 		}
 		else
 		{
 			cur = cur->next;
 		}
 	}
-	//*(data->lng_format) = head;
-
 	return (data);
 }
 
