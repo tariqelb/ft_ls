@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:32:02 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/20 21:45:38 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/26 00:59:31 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,7 +96,7 @@ int	ft_get_paths_and_check_errors(char **av, t_data *data)
 	int i;
 
 	i = 0;
-	while (av[i] != NULL)
+	while (av && av[i] != NULL)
 	{
 		if (av[i][0] != '-')
 		{

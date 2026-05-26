@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 17:15:00 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/15 20:11:33 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/26 01:10:30 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,7 +87,7 @@ int ft_get_files_and_check_errors(char **av, t_data *data)
 	struct stat st;
 
 	i = 0;
-	while (av[i] != NULL)
+	while (av && av[i] != NULL)
 	{
 		if (av[i][0] != '-')
 		{

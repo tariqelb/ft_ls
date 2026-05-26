@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 00:24:48 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/23 19:48:37 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/25 02:15:49 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ typedef struct	s_files
 
 typedef struct	s_short_format
 {
-	void			*data;
+	char			*data;
 	char			prnt_dir[256];
 	short			is_dir;
 	struct s_short_format	*next;
@@ -67,6 +67,7 @@ typedef struct	s_long_format
 	char		filename[256];//limit 255
 	char		prnt_dir[256];//limit 255
 	short		is_dir;
+	size_t		total;
 	struct s_long_format	*next;
 }		t_long_format;
 
@@ -120,7 +121,7 @@ int ft_remove_arg(t_data *data, int index);
 
 
 //File: ft_ls_struct_utils.c
-t_short_format	*ft_add_new(void *data, size_t size, struct stat st, char *prnt_dir);
+t_short_format	*ft_add_new(char *data, size_t size, struct stat st, char *prnt_dir);
 void	ft_push_back(t_short_format **head, t_short_format *new_node);
 void	ft_delete_all(t_short_format **head);
 void    ft_push_back_at(t_short_format **node, t_short_format *new_node, int push_at);
@@ -129,8 +130,8 @@ void    ft_push_back_at(t_short_format **node, t_short_format *new_node, int pus
 //File: ft_ls_struct_utils_two.c
 void    ft_free_long_format(t_long_format *lst);
 void	ft_long_add_back(t_long_format **lst, t_long_format *new_node);
-t_long_format   *ft_new_long_node(t_data *data, int i, struct stat st, char *prnt_dir);
-t_long_format   *ft_new_long_node_dir(t_data *data, char *entry_name, struct stat st, char *prnt_dir);
+t_long_format   *ft_new_long_node(t_data *data, int i, struct stat st, char *prnt_dir, size_t total);
+t_long_format   *ft_new_long_node_dir(t_data *data, char *entry_name, struct stat st, char *prnt_dir, size_t total);
 int     ft_count_struct_elem_short(t_data *data);
 int     ft_count_struct_elem_long(t_data *data);
 void    ft_long_add_back_at(t_long_format **node, t_long_format *new_node, int push_at);
@@ -170,16 +171,23 @@ int     ft_list_dir(t_data *data, int d_index);
 int     ft_list_directories(t_data *data);
 
 //File: ft_list_folder_long.c
-int     ft_get_long_format_folder(t_data *data, char *entry_name, struct stat st, char *p_dir, int push_at);
-int     ft_get_short_format_folder(t_data *data, char *entry_name, struct stat st, char *p_dir, int push_at);
-int     ft_list_folder_long_format(t_data *data, char *filename, char *prnt_dir, int push_at);
-int     ft_list_folder_short_format(t_data *data, char *filename, char *prnt_dir, int push_at);
+int     ft_get_long_format_folder(t_data *data, char *entry_name, struct stat st, char *p_dir, size_t total);
+int     ft_get_short_format_folder(t_data *data, char *entry_name, struct stat st, char *p_dir);
+int     ft_list_folder_long_format(t_data *data, char *filename, char *prnt_dir);
+int     ft_list_folder_short_format(t_data *data, char *filename, char *prnt_dir);
 
 //File: ft_ls_sort_format.c
 t_data	*ft_sort_short_format(t_data *data, int len);
 t_data	*ft_sort_long_format(t_data *data, int len);
 t_data *ft_sort_long_format_all_data(t_data *data);
+t_data *ft_sort_short_format_all_data(t_data *data);
+t_data *ft_sort_format_data_from_elem_n_short(t_data *data, int long_len);
+t_data *ft_sort_format_data_from_elem_n_long(t_data *data, int long_len);
 
+//File: ft_print_dir_path_and_total.c
+int     ft_print_folder_path(t_data *data, char *path);
+size_t   ft_get_total(t_data *data, char *p_dir_path);
+int     ft_display_total(size_t total);
 
 //----------------ft_printf
 

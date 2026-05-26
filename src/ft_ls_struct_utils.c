@@ -6,13 +6,13 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 17:18:11 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/22 01:17:07 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/24 23:34:27 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_ls.h"
 
-t_short_format	*ft_add_new(void *data, size_t size, struct stat st, char *prnt_dir)
+t_short_format	*ft_add_new(char *data, size_t size, struct stat st, char *prnt_dir)
 {
 	t_short_format	*node;
 	size_t		i;
@@ -31,15 +31,17 @@ t_short_format	*ft_add_new(void *data, size_t size, struct stat st, char *prnt_d
 	i = 0;
 	while (i < size)
 	{
-		((char *)node->data)[i] = ((char *)data)[i];
+		node->data[i] = data[i];
 		i++;
 	}
+	node->data[i] = 0;
 	j = 0; 
 	while (prnt_dir[j]) 
 	{ 
 		node->prnt_dir[j] = prnt_dir[j]; 
 		j++;
 	}
+	node->prnt_dir[j] = 0; 
 
 	if (S_ISDIR(st.st_mode))
 		node->is_dir = 1;

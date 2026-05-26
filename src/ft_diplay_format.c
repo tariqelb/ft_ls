@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 00:49:04 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/23 00:51:38 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/25 02:48:53 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,8 @@ void	ft_display_short_format(t_data *data)
     {
         name = (char *)tmp->data;
 
-	write(1, tmp->prnt_dir, ft_strlen(tmp->prnt_dir));
-        write(1, " ", 1);
+	//write(1, tmp->prnt_dir, ft_strlen(tmp->prnt_dir));
+        //write(1, " ", 1);
         write(1, name, ft_strlen(name));
 
         if (tmp->next)
@@ -101,8 +101,8 @@ void ft_display_long_format_n_data(t_data *data, int len)
 
 	while (tmp)
 	{
-	    write(1, tmp->prnt_dir, ft_strlen(tmp->prnt_dir));
-	    write(1, " ", 1);
+	    //write(1, tmp->prnt_dir, ft_strlen(tmp->prnt_dir));
+	    //write(1, " ", 1);
 
 	    write(1, tmp->permission, 10);
 	    write(1, " ", 1);
@@ -151,8 +151,6 @@ void	ft_display_short_format_n_data(t_data *data, int len)
 	{
 	    name = (char *)tmp->data;
 
-	    write(1, tmp->prnt_dir, ft_strlen(tmp->prnt_dir));
-	    write(1, " ", 1);
 	    write(1, name, ft_strlen(name));
 
 	    if (tmp->next)

@@ -6,18 +6,19 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 23:24:26 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/22 01:16:56 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/24 01:52:18 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_ls.h"
 
-t_long_format   *ft_new_long_node_dir(t_data *data, char *entry_name, struct stat st, char *prnt_dir)
+t_long_format   *ft_new_long_node_dir(t_data *data, char *entry_name, struct stat st, char *prnt_dir, size_t total)
 {
 //	printf("ft_new_long_node_dir\n");
         t_long_format   *node;
         int             i;
 	(void) data;
+	(void) total;
 
         node = malloc(sizeof(t_long_format));
         if (!node)
@@ -27,6 +28,7 @@ t_long_format   *ft_new_long_node_dir(t_data *data, char *entry_name, struct sta
         node->size = st.st_size;
         node->next = NULL;
 
+	
         ft_fill_permissions(node->permission, st.st_mode);
         ft_fill_owner(node, &st);
         ft_fill_time(node->time, st.st_mtime);
@@ -48,11 +50,12 @@ t_long_format   *ft_new_long_node_dir(t_data *data, char *entry_name, struct sta
         return (node);
 }
 
-t_long_format *ft_new_long_node(t_data *data, int i, struct stat st, char *prnt_dir)
+t_long_format *ft_new_long_node(t_data *data, int i, struct stat st, char *prnt_dir, size_t total)
 {
 	//printf("ft_new_long_node\n");
 	t_long_format *node;
 	int j;
+	(void) total;
 
 	node = malloc(sizeof(t_long_format));
 	if (!node)

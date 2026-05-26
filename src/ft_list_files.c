@@ -6,11 +6,27 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 00:00:14 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/23 00:41:16 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/26 01:48:49 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_ls.h"
+
+char	ft_check_is_hiden_file(char *path_file)
+{
+	int	len;
+
+	printf("file name : %s\n", path_file);
+	len = ft_strlen(path_file);
+	while (len > 0 && path_file[len - 1] != '/')
+	{
+		len--;	
+	}
+	printf("file name : %c\n", path_file[len]);
+	if (path_file[len] == '.')
+		return (1);
+	return (0);
+}
 
 int	ft_get_long_format(t_data *data, int f_index, struct stat st)
 {
@@ -18,9 +34,10 @@ int	ft_get_long_format(t_data *data, int f_index, struct stat st)
 	//[permissions] [links] [user] [group] [size] [time] [filename]
 	t_long_format	*new_file;
 	char		*prnt_dir;
-
+	//if (data->opt.op_a_flag == 0 && ft_check_is_hiden_file(data->files.file[f_index]))
+	//	return (0);
 	prnt_dir = ft_get_dir_path(data->files.file[f_index]);
-	new_file = ft_new_long_node(data, f_index, st, prnt_dir);
+	new_file = ft_new_long_node(data, f_index, st, prnt_dir, 0);//total 0 for list files as expected
 	//printf("new %s \n", new_file->filename);
 	ft_long_add_back(&data->lng_format, new_file);
 	return (0);
@@ -32,8 +49,11 @@ int	ft_get_short_format(t_data *data, int f_index, struct stat st)
 	t_short_format	*new_file;
 	char		*prnt_dir;
 
+	//if (data->opt.op_a_flag == 0 && ft_check_is_hiden_file(data->files.file[f_index]))
+	//	return (0);
 	prnt_dir = ft_get_dir_path(data->files.file[f_index]);
 	new_file = ft_add_new(data->files.file[f_index], ft_strlen(data->files.file[f_index]), st, prnt_dir);
+	//printf("new %s \n", new_file->data);
 	ft_push_back(&data->shrt_format, new_file);	
 	return (0);
 }
@@ -92,17 +112,13 @@ int	ft_list_files(t_data *data)
 		ft_list_single_file(data, i);	
 		i++;
 	}
-	printf("-------------------**************----------------\n");	
 	if (data->opt.op_l_flag)
-		ft_sort_long_format(data, 0);
+		data = ft_sort_format_data_from_elem_n_long(data, 0);
 	else
-		ft_sort_short_format(data, 0);
-	printf("**********************************************************************\n");
+		data = ft_sort_format_data_from_elem_n_short(data, 0);
 	if (data->opt.op_l_flag)
 		ft_display_long_format(data);
 	else
 		ft_display_short_format(data);
-	printf("**********************************************************************\n");
-	printf("-------------------**************----------------\n");	
 	return (0);
 }

@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 15:40:28 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/15 20:12:34 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/26 01:14:20 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,16 @@ int ft_copy_args(int ac, char **av, t_data *data)
 {
 	int i;
 
+	data->args = NULL;
+	if (ac == 1)
+	{
+		data->args = malloc(sizeof(char *) * 2);
+		if (!data->args)
+			return (1);
+		data->args[0] = ft_strdup(".");
+		data->args[1] = NULL;
+		return (0);
+	}
 	data->args = malloc(sizeof(char *) * ac);
 	if (!data->args)
 		return (1);

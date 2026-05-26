@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 00:35:15 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/23 19:31:23 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/26 02:14:04 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 int	ft_count_args(t_data data)
 {
+	//printf("ft_count_args\n");
 	int	i;
 	int	args;
 
@@ -21,11 +22,12 @@ int	ft_count_args(t_data data)
 	args = 0;
 	while (data.args && data.args[i] != NULL)
 	{
-		//printf("Arg i %d is %s \n", i, data.args[i]);
+	//	printf("Arg i %d is %s \n", i, data.args[i]);
 		if (data.args[i][0] != '-')
 			args++;
 		i++;
 	}
+	//printf("args %d\n", args);
 	return (args);
 }
 
@@ -65,17 +67,21 @@ int	main(int ac, char **av)
 	data.paths.nbr_of_paths = 0;
 	data.files.nbr_of_files = 0;
 	data.opt.nbr_of_opt = 0;
-	//printf("check opt\n");
-	if (ac > 1)
-		ft_copy_args(ac, av, &data);
+	data.args = NULL;
+	ft_copy_args(ac, av, &data);
 	if (ft_get_options_and_check_errors(ac, data.args, &data))
 		return (1);
 	//printf("end check opt\n");
 	//printf("check file\n");
-	ft_get_files_and_check_errors(data.args, &data);
+	
+	i = ft_count_args(data);
+	if (i)
+		ft_get_files_and_check_errors(data.args, &data);
+	//printf("check opt\n");
 	//printf("end check file\n");
 	//printf("check dir\n");
 	ft_get_paths_and_check_errors(data.args, &data);
+	//printf("check opt\n");
 	//printf("end of check dir\n");
 	(void) i;
 	/*
