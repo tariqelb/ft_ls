@@ -6,18 +6,32 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 23:30:34 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/30 00:41:26 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/30 00:50:56 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_ls.h"
 
-t_long_format	*ft_iter_till_new_data(t_data *data, int we_reach)
+t_long_format	*ft_iter_till_new_data_long(t_data *data, int we_reach)
 {
 	int i = 0;
 	t_long_format *tmp;
 
 	tmp = data->lng_format;
+	while (i < we_reach && tmp)
+	{
+		tmp = tmp->next;
+		i++;
+	}
+	return (tmp);
+}
+
+t_short_format	*ft_iter_till_new_data_short(t_data *data, int we_reach)
+{
+	int i = 0;
+	t_short_format *tmp;
+
+	tmp = data->shrt_format;
 	while (i < we_reach && tmp)
 	{
 		tmp = tmp->next;
@@ -35,13 +49,13 @@ int	ft_iterate_recursion_long_format(t_data *data, int we_reach)
 	t_long_format *temp;
 
 	//temp = data->lng_format;
-	temp = ft_iter_till_new_data(data, we_reach);
+	temp = ft_iter_till_new_data_long(data, we_reach);
 	len = ft_count_struct_elem_long(data); 
 	i = 0;
 	i = we_reach;
 	while (i < len)
 	{
-		//printf("Is dir %d, i %d, len %d  file %s\n", temp->is_dir, i, len, temp->filename);
+		printf("Is dir %d, i %d, len %d  file %s\n", temp->is_dir, i, len, temp->filename);
 		int	nbr_of_elem = 0;
 		if (temp->is_dir == 1  && (ft_strcmp(temp->filename, ".") != 0 && ft_strcmp(temp->filename, "..") != 0))
 		{
@@ -58,16 +72,18 @@ int	ft_iterate_recursion_long_format(t_data *data, int we_reach)
 	return (0);
 }
 
-int	ft_iterate_recursion_short_format(t_data *data)
+int	ft_iterate_recursion_short_format(t_data *data, int we_reach)
 {
 	//printf("ft_iterate_recursion_short_format\n");
 	int	i;
 	int	len;
 	t_short_format *temp;
 
-	temp = data->shrt_format;
+	//temp = data->shrt_format;
+	temp = ft_iter_till_new_data_short(data, we_reach);
 	len = ft_count_struct_elem_short(data); 
 	i = 0;
+	i = we_reach;
 	while (i < len)
 	{
 		//printf("Is dir %d, i %d, len %d  file %s\n", temp->is_dir, i, len, temp->data);
@@ -91,12 +107,12 @@ int	ft_start_listing(t_data *data)
 {
 	//printf("ft_start_listing\n");
 	//ls start listing file the dirs
-	//printf("Start file listing       #-------------------------\n");
+	printf("Start file listing       #-------------------------\n");
 	ft_list_files(data);
-	//printf("End file listing         #---------------------------\n");
-	//printf("Start listing to dirs     ---------------------------\n");
+	printf("End file listing         #---------------------------\n");
+	printf("Start listing to dirs     ---------------------------\n");
 	ft_list_directories(data);
-	//printf("End start listing to dirs ---------------------------\n");
+	printf("End start listing to dirs ---------------------------\n");
 	//printf("Start recursion listing to dirs     ---------------------------\n");
 	/*	
 	if (data->opt.op_l_flag)

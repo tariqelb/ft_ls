@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 00:24:48 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/30 00:33:42 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/30 00:46:09 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -159,7 +159,7 @@ int     ft_list_files(t_data *data);
 
 //File: ft_start_listing.c
 int     ft_iterate_recursion_long_format(t_data *data, int we_reach);
-int     ft_iterate_recursion_short_format(t_data *data);
+int     ft_iterate_recursion_short_format(t_data *data, int we_reach);
 int     ft_start_listing(t_data *data);
 
 //File: ft_get_time_and_owner.c 
