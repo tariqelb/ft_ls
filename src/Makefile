@@ -1,6 +1,7 @@
 NAME= ft_ls.out
 
-SRCS=	./ft_copy_delete_args.c \
+SRCS=	./ft_add_cwd.c \
+	./ft_copy_delete_args.c \
 	./ft_diplay_format.c \
 	./ft_fill_permisions.c \
 	./ft_get_files_and_check_errors.c \
@@ -17,8 +18,12 @@ SRCS=	./ft_copy_delete_args.c \
 	./ft_ls_struct_utils.c \
 	./ft_ls_struct_utils_two.c \
 	./ft_ls_utils_one.c \
+	./ft_ls_utils_two.c \
 	./ft_print_dir_path_and_total.c \
 	./ft_printf_utils.c \
+	./ft_sort_by_time_long_n_elem.c \
+	./ft_sort_by_time_short_all_data.c \
+	./ft_sort_by_time_short_n_elem.c \
 	./ft_start_listing.c 
 
 

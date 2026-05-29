@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 17:18:11 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/24 23:34:27 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/28 22:18:34 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ t_short_format	*ft_add_new(char *data, size_t size, struct stat st, char *prnt_d
 		i++;
 	}
 	node->data[i] = 0;
+	node->raw_time = st.st_mtime;
 	j = 0; 
 	while (prnt_dir[j]) 
 	{ 

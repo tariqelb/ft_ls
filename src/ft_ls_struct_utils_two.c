@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 23:24:26 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/24 01:52:18 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/28 22:18:46 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ t_long_format   *ft_new_long_node_dir(t_data *data, char *entry_name, struct sta
 
         node->links = st.st_nlink;
         node->size = st.st_size;
+	node->raw_time = st.st_mtime;
         node->next = NULL;
 
 	

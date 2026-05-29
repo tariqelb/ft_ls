@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 00:35:15 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/26 02:14:04 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/30 00:03:02 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,16 +57,17 @@ int	ft_count_opt_and_args(t_data *data, int ac, int args)
 	return (0);
 }
 
-
 int	main(int ac, char **av)
 {
 	t_data	data;
 	int	i;
 	int	args;
 
+	memset(&data, 0, sizeof(t_data));
 	data.paths.nbr_of_paths = 0;
 	data.files.nbr_of_files = 0;
 	data.opt.nbr_of_opt = 0;
+	data.first_dir = 0;
 	data.args = NULL;
 	ft_copy_args(ac, av, &data);
 	if (ft_get_options_and_check_errors(ac, data.args, &data))
@@ -81,6 +82,8 @@ int	main(int ac, char **av)
 	//printf("end check file\n");
 	//printf("check dir\n");
 	ft_get_paths_and_check_errors(data.args, &data);
+
+	
 	//printf("check opt\n");
 	//printf("end of check dir\n");
 	(void) i;
@@ -111,17 +114,17 @@ int	main(int ac, char **av)
 	data.shrt_format = NULL;
 	i = 0;
 	args = ft_count_args(data);
-	printf("counter path : %d , file : %d opt: %d args-opt: %d\n", data.paths.nbr_of_paths, data.files.nbr_of_files, data.opt.nbr_of_opt, args);
+	//printf("counter path : %d , file : %d opt: %d args-opt: %d\n", data.paths.nbr_of_paths, data.files.nbr_of_files, data.opt.nbr_of_opt, args);
 	if ((args == 0 && ac > 1) || ((ac > 1 && ft_its_only_options(&data)) && ft_count_opt_and_args(&data, ac, args)))
 	{
-		printf("Ls with args but all give error\n");
+		printf("outside\n");
 		return (1);
 	}
 	//printf("_______________________________________________________________________\n");
 	//printf("\n\n\n\n\n\n\n\n\n\n");
 	ft_start_listing(&data);
-	//printf("_______________________________________________________________________\n");
-	/*
+	/*printf("_______________________________________________________________________\n");
+	
 	if (data.opt.op_l_flag)
 		ft_display_long_format(&data);
 	else

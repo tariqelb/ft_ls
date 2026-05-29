@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/25 01:35:48 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/25 02:20:48 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/29 01:29:28 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,23 +14,25 @@
 
 static void ft_copy_short_content(t_short_format *dst, t_short_format *src)
 {
-    dst->data = src->data;
-    memcpy(dst->prnt_dir, src->prnt_dir, 256);
-    dst->is_dir = src->is_dir;
+	dst->data = src->data;
+	memcpy(dst->prnt_dir, src->prnt_dir, 256);
+	dst->is_dir = src->is_dir;
+	dst->raw_time = src->raw_time;
 }
 
 static void ft_copy_long_content(t_long_format *dst, t_long_format *src)
 {
-    memcpy(dst->permission, src->permission, 11);
-    dst->links = src->links;
-    memcpy(dst->user, src->user, 33);
-    memcpy(dst->grop, src->grop, 33);
-    dst->size = src->size;
-    memcpy(dst->time, src->time, 13);
-    memcpy(dst->filename, src->filename, 256);
-    memcpy(dst->prnt_dir, src->prnt_dir, 256);
-    dst->is_dir = src->is_dir;
-    dst->total = src->total;
+	memcpy(dst->permission, src->permission, 11);
+	dst->links = src->links;
+	memcpy(dst->user, src->user, 33);
+	memcpy(dst->grop, src->grop, 33);
+	dst->size = src->size;
+	dst->raw_time = src->raw_time;
+	memcpy(dst->time, src->time, 13);
+	memcpy(dst->filename, src->filename, 256);
+	memcpy(dst->prnt_dir, src->prnt_dir, 256);
+	dst->is_dir = src->is_dir;
+	dst->total = src->total;
 }
 
 void    ft_swap_short_data(t_short_format *a, t_short_format *b)

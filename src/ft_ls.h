@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 00:24:48 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/25 02:15:49 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/30 00:33:42 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ typedef struct	s_short_format
 	char			*data;
 	char			prnt_dir[256];
 	short			is_dir;
+	time_t  		raw_time;
 	struct s_short_format	*next;
 }		t_short_format;
 
@@ -63,6 +64,7 @@ typedef struct	s_long_format
 	char		user[33];//limit 32
 	char		grop[33];//limit 32
 	size_t		size;
+	time_t  	raw_time;
 	char		time[13];
 	char		filename[256];//limit 255
 	char		prnt_dir[256];//limit 255
@@ -73,6 +75,7 @@ typedef struct	s_long_format
 
 typedef struct	s_data
 {
+		int		first_dir;
 		char		**args;
 		t_path		paths;
 		t_file		files;
@@ -80,6 +83,9 @@ typedef struct	s_data
 		t_short_format	*shrt_format;
 		t_long_format	*lng_format;
 }		t_data;
+
+//File : ft_add_cwd.c
+void    ft_add_cwd_if_needed(t_data *data);
 
 //File : ft_ls.c
 
@@ -152,6 +158,8 @@ int     ft_list_files(t_data *data);
 
 
 //File: ft_start_listing.c
+int     ft_iterate_recursion_long_format(t_data *data, int we_reach);
+int     ft_iterate_recursion_short_format(t_data *data);
 int     ft_start_listing(t_data *data);
 
 //File: ft_get_time_and_owner.c 
@@ -181,13 +189,38 @@ t_data	*ft_sort_short_format(t_data *data, int len);
 t_data	*ft_sort_long_format(t_data *data, int len);
 t_data *ft_sort_long_format_all_data(t_data *data);
 t_data *ft_sort_short_format_all_data(t_data *data);
+
+//File : ft_ls_sort_data.c
+void    ft_swap_short_data(t_short_format *a, t_short_format *b);
+void    ft_swap_long_data(t_long_format *a, t_long_format *b);
+t_long_format *ft_get_start_long(t_long_format *head, int long_len);
+t_short_format *ft_get_start_short(t_short_format *head, int short_len);
 t_data *ft_sort_format_data_from_elem_n_short(t_data *data, int long_len);
 t_data *ft_sort_format_data_from_elem_n_long(t_data *data, int long_len);
 
 //File: ft_print_dir_path_and_total.c
 int     ft_print_folder_path(t_data *data, char *path);
 size_t   ft_get_total(t_data *data, char *p_dir_path);
-int     ft_display_total(size_t total);
+int     ft_display_total(t_data *data, size_t total);
+
+//File: ft_ls_utils_two.c
+int     ft_numlen(size_t n);
+int     ft_get_max_size_width(t_long_format *lst);
+void    ft_print_padded_size(size_t size, int max_width);
+
+
+//File: ft_sort_by_time_short_n_elem.c
+int     ft_cmp_time_short(t_short_format *a, t_short_format *b);
+t_data  *ft_sort_by_time_short_n_elem(t_data *data, int short_len);
+
+
+//File: ft_sort_by_time_long_n_elem.c
+int     ft_cmp_time(t_long_format *a, t_long_format *b);
+t_data  *ft_sort_by_time_long_n_elem(t_data *data, int long_len);
+
+//File : ft_sort_by_time_short_all_data.c
+t_data	*ft_sort_by_time_long_all_data(t_data *data);
+t_data	*ft_sort_by_time_short_all_data(t_data *data);
 
 //----------------ft_printf
 
@@ -196,6 +229,8 @@ int	ft_putint(int nbr,int std);
 int	ft_puthex(unsigned int nbr, int flag, int std);
 int	ft_putstr_std(char *str, int std);
 int     ft_put_size_t(size_t nbr, int std);
+
+
 
 
 //

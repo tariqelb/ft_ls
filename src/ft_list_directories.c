@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 23:57:34 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/26 01:38:41 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/30 00:41:37 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ int	ft_list_dir(t_data *data, int d_index)
 	dir = opendir(data->paths.path[d_index]);
 	if (!dir)
 		return (1);
-	ft_print_folder_path(data, data->paths.path[d_index]);
+	if (data->paths.nbr_of_paths > 1)
+		ft_print_folder_path(data, data->paths.path[d_index]);
 	total = ft_get_total(data, data->paths.path[d_index] );
 	while ((entry = readdir(dir)) != NULL)
 	{
@@ -70,6 +71,7 @@ int	ft_list_dir(t_data *data, int d_index)
 		free(path);
 	}
 	closedir(dir);
+	ft_display_total(data, total);
 	return (0);
 }
 
@@ -82,21 +84,48 @@ int	ft_list_directories(t_data *data)
 	long_len = 0;
 	short_len = 0;
 	i = 0;
+	int	we_reach = 0;
 	while (i < data->paths.nbr_of_paths)
 	{
 		if (data->opt.op_l_flag)
 			long_len = ft_count_struct_elem_long(data);
 		else
 			short_len = ft_count_struct_elem_short(data);
-		ft_list_dir(data, i);		
-		if (data->opt.op_l_flag)
-			data = ft_sort_format_data_from_elem_n_long(data, long_len);
+		ft_list_dir(data, i);
+		if (data->opt.op_t_flag)
+		{
+			if (data->opt.op_l_flag)
+				data = ft_sort_by_time_long_n_elem(data, long_len);
+			else
+				data = ft_sort_by_time_short_n_elem(data, short_len);
+		}
 		else
-		 	data = ft_sort_format_data_from_elem_n_short(data, short_len);
+		{
+			if (data->opt.op_l_flag)
+				data = ft_sort_format_data_from_elem_n_long(data, long_len);
+			else
+		 		data = ft_sort_format_data_from_elem_n_short(data, short_len);
+		}
 		if (data->opt.op_l_flag)
 			ft_display_long_format_n_data(data, long_len);
 		else
 			ft_display_short_format_n_data(data, short_len);
+	//	printf("//---------------------------------------------------------{%d}\n", we_reach);
+         //if (data->opt.op_l_flag)
+         //        data = ft_sort_long_format_all_data(data);
+         //else
+         //        data = ft_sort_short_format_all_data(data);
+         if (data->opt.op_R_flag)
+         {
+                 if (data->opt.op_l_flag)
+                         ft_iterate_recursion_long_format(data, we_reach);
+                 else
+                         ft_iterate_recursion_short_format(data);
+         }
+
+		we_reach = ft_count_struct_elem_long(data);
+	//	printf("//---------------------------------------------------------\n");
+		//---------------------------------------------------------
 		i++;
 	}
 	return (0); 
