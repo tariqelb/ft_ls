@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 23:57:34 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/30 00:56:32 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/30 01:02:06 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,10 +113,10 @@ int	ft_list_directories(t_data *data)
 		else
 			ft_display_short_format_n_data(data, short_len);
 		//printf("//---------------------------------------------------------{%d}\n", we_reach);
-         //if (data->opt.op_l_flag)
-         //        data = ft_sort_long_format_all_data(data);
-         //else
-         //        data = ft_sort_short_format_all_data(data);
+         if (data->opt.op_l_flag)
+                 data = ft_sort_format_data_from_elem_n_long(data, we_reach);
+         else
+                 data = ft_sort_format_data_from_elem_n_short(data, we_reach);
          if (data->opt.op_R_flag)
          {
                  if (data->opt.op_l_flag)

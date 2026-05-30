@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 23:30:34 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/30 00:50:56 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/30 02:46:28 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,11 +59,12 @@ int	ft_iterate_recursion_long_format(t_data *data, int we_reach)
 		int	nbr_of_elem = 0;
 		if (temp->is_dir == 1  && (ft_strcmp(temp->filename, ".") != 0 && ft_strcmp(temp->filename, "..") != 0))
 		{
+			//nbr_of_elem = ft_list_folder_long_format(data, temp->filename, temp->prnt_dir);
 			nbr_of_elem = ft_list_folder_long_format(data, temp->filename, temp->prnt_dir);
 			len = ft_count_struct_elem_long(data);
-		//	printf("____before %d [%d]******************************************************\n", len , nbr_of_elem);
+			printf("____before %d [%d]******************************************************\n", len , nbr_of_elem);
 			ft_display_long_format_n_data(data, len - nbr_of_elem);
-		//	printf("____after******************************************************\n");
+			printf("____after******************************************************\n");
 		}
 		//printf("after temp iter recr -------------------[%s]\n", temp->filename);
 		temp = temp->next;
