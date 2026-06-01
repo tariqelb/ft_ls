@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 00:49:04 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/29 22:52:04 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/31 19:50:19 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	ft_display_short_format(t_data *data)
         //write(1, " ", 1);
 	if (tmp->is_dir)
 	{
-		write(1, "\033[34m", 5); // start blue
+		write(1, "\033[94m", 5); // start blue
 		write(1, name, strlen(name));
 		write(1, "\033[0m", 4);  // reset
 	}
@@ -225,6 +225,123 @@ void	ft_display_short_format_n_data(t_data *data, int len)
 			write(1, "  ", 2);
 
 		tmp = tmp->next;
+	}
+
+	write(1, "\n", 1);
+}
+
+
+void ft_display_long_format_n_to_m_data(t_data *data, int start, int end)
+{
+	t_long_format	*tmp;
+	int		i;
+	int		max_size_width;
+
+	if (!data || !data->lng_format)
+	    return;
+
+	tmp = data->lng_format;
+	i = 0;
+	while (tmp && i < start)
+	{
+	    i++;
+	    tmp = tmp->next;
+	}
+	max_size_width = ft_get_max_size_width(tmp);
+
+	while (tmp && i < start + end)
+	{
+		//write(1, tmp->prnt_dir, ft_strlen(tmp->prnt_dir));
+		//write(1, " ", 1);
+
+		write(1, tmp->permission, 10);
+		write(1, " ", 1);
+
+		ft_put_size_t(tmp->links, 1);
+		write(1, " ", 1);
+
+		write(1, tmp->user, ft_strlen(tmp->user));
+		write(1, " ", 1);
+
+		write(1, tmp->grop, ft_strlen(tmp->grop));
+		write(1, " ", 1);
+
+		ft_print_padded_size(tmp->size, max_size_width);
+		//ft_put_size_t(tmp->size, 1);
+		write(1, " ", 1);
+
+		write(1, tmp->time, ft_strlen(tmp->time));
+		write(1, " ", 1);
+
+		if (tmp->is_dir)
+		{
+			write(1, "\033[94m", 5); // start blue
+			write(1, tmp->filename, strlen(tmp->filename));
+			write(1, "\033[0m", 4);  // reset
+		}
+		else
+		{
+			if (tmp->filename[0] == '.')
+			{
+				write(1, "\033[37m", 5); // start blue
+				write(1, tmp->filename, strlen(tmp->filename));
+				write(1, "\033[0m", 4);  // reset
+			}
+			else
+				write(1, tmp->filename, ft_strlen(tmp->filename));
+		}
+		write(1, "\n", 1);
+
+		tmp = tmp->next;
+		i++;
+	}
+}
+/*
+** Display linked list in short format like ls
+*/
+
+void	ft_display_short_format_n_to_m_data(t_data *data, int start, int end)
+{
+	t_short_format *tmp;
+	char            *name;
+	int		i;
+
+	if (!data || !data->shrt_format)
+	    return;
+
+	tmp = data->shrt_format;
+	i = 0;
+	while (tmp && i < start)
+	{
+		i++;
+		tmp = tmp->next;
+	}
+	while (tmp && i < start + end)
+	{
+		name = (char *)tmp->data;
+
+		if (tmp->is_dir)
+		{
+			write(1, "\033[94m", 5); // start blue
+			write(1, name, strlen(name));
+			write(1, "\033[0m", 4);  // reset
+		}
+		else
+		{
+			if (name[0] == '.')
+			{
+				write(1, "\033[37m", 5); // start blue
+				write(1, name, strlen(name));
+				write(1, "\033[0m", 4);  // reset
+			}
+			else
+				write(1, name, ft_strlen(name));
+		}
+		if (tmp->next)
+			write(1, "  ", 2);
+
+		tmp = tmp->next;
+		i++;
 	}
 
 	write(1, "\n", 1);

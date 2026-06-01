@@ -1,31 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_sort_by_time_long_n_elem.c                      :+:      :+:    :+:   */
+/*   ft_sort_by_time_long_n_to_m_elem.c                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/28 22:19:43 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/31 19:46:09 by tel-bouh         ###   ########.fr       */
+/*   Created: 2026/05/31 19:08:14 by tel-bouh          #+#    #+#             */
+/*   Updated: 2026/05/31 19:52:30 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_ls.h"
 
-int	ft_cmp_time(t_long_format *a, t_long_format *b)
+t_data	*ft_sort_by_time_long_n_to_m_elem(t_data *data, int long_len, int end)
 {
-	if (a->raw_time < b->raw_time)
-	    return (1);   // b is newer → swap
-	if (a->raw_time > b->raw_time)
-	    return (0);
-	return (-1);
-	return (ft_strcmp(a->filename, b->filename)); // tie breaker
-}
-
-t_data	*ft_sort_by_time_long_n_elem(t_data *data, int long_len)
-{
-	t_long_format *cur;
-	int swapped;
+	t_long_format	*cur;
+	int		swapped;
+	int		i;
 
 	if (!data || !data->lng_format)
 	    return (data);
@@ -35,8 +26,8 @@ t_data	*ft_sort_by_time_long_n_elem(t_data *data, int long_len)
 	{
 		swapped = 0;
 		cur = ft_get_start_long(data->lng_format, long_len);
-
-		while (cur && cur->next)
+		i = long_len;
+		while (cur && cur->next && i < long_len + end - 1)
 		{
 			if (data->opt.op_r_flag && ft_cmp_time(cur, cur->next) == 0)
 			{
@@ -51,7 +42,9 @@ t_data	*ft_sort_by_time_long_n_elem(t_data *data, int long_len)
 				break;
 			}
 			cur = cur->next;
+			i++;
 		}
 	}
 	return (data);
 }
+

@@ -13,6 +13,7 @@ SRCS=	./ft_add_cwd.c \
 	./ft_ls_sort_data.c \
 	./ft_ls_sort_format.c \
 	./ft_list_folder_long.c \
+	./ft_list_folder_at.c \
 	./ft_loop_over_options.c \
 	./ft_ls.c \
 	./ft_ls_struct_utils.c \
@@ -21,9 +22,13 @@ SRCS=	./ft_add_cwd.c \
 	./ft_ls_utils_two.c \
 	./ft_print_dir_path_and_total.c \
 	./ft_printf_utils.c \
+	./ft_sort_dirs_paths_by_time.c \
 	./ft_sort_by_time_long_n_elem.c \
+	./ft_sort_by_time_long_n_to_m_elem.c \
 	./ft_sort_by_time_short_all_data.c \
 	./ft_sort_by_time_short_n_elem.c \
+	./ft_sort_by_time_short_n_to_m_elem.c \
+	./ft_sort_from_n_to_m_elem_long.c \
 	./ft_start_listing.c 
 
 

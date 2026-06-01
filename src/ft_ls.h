@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 00:24:48 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/30 00:46:09 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/31 21:11:07 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,6 +39,7 @@ typedef struct	s_options
 typedef struct	s_path
 {
 		char	**path;
+		time_t  *raw_time;
 		int	nbr_of_paths;
 }		t_path;
 
@@ -171,6 +172,10 @@ void	ft_display_long_format(t_data *data);
 void    ft_display_short_format(t_data *data);
 void	ft_display_long_format_n_data(t_data *data, int len);
 void    ft_display_short_format_n_data(t_data *data, int len);
+void    ft_display_long_format_n_to_m_data(t_data *data, int start, int end);
+void    ft_display_short_format_n_to_m_data(t_data *data, int start, int end);
+
+
 
 //File: ft_list_directories.c
 int     ft_get_long_format_dir(t_data *data, char *entry_name, int d_index, struct stat st);
@@ -183,6 +188,13 @@ int     ft_get_long_format_folder(t_data *data, char *entry_name, struct stat st
 int     ft_get_short_format_folder(t_data *data, char *entry_name, struct stat st, char *p_dir);
 int     ft_list_folder_long_format(t_data *data, char *filename, char *prnt_dir);
 int     ft_list_folder_short_format(t_data *data, char *filename, char *prnt_dir);
+
+//File : ft_list_folder_at.c
+int     ft_get_short_format_folder_at(t_data *data, char *entry_name, struct stat st, char *p_dir, int at);
+int     ft_get_long_format_folder_at(t_data *data, char *entry_name, struct stat st, char *p_dir, size_t total, int at);
+int     ft_list_folder_long_format_at(t_data *data, char *filename, char *prnt_dir, int i);
+int     ft_list_folder_short_format_at(t_data *data, char *filename, char *prnt_dir, int i);
+
 
 //File: ft_ls_sort_format.c
 t_data	*ft_sort_short_format(t_data *data, int len);
@@ -221,6 +233,28 @@ t_data  *ft_sort_by_time_long_n_elem(t_data *data, int long_len);
 //File : ft_sort_by_time_short_all_data.c
 t_data	*ft_sort_by_time_long_all_data(t_data *data);
 t_data	*ft_sort_by_time_short_all_data(t_data *data);
+
+
+//File : ft_sort_from_n_to_m_elem_long.c 
+t_data	*ft_sort_format_data_from_elem_n_to_m_short(t_data *data, int short_len, int end);
+t_data	*ft_sort_format_data_from_elem_n_to_m_long(t_data *data, int long_len, int end);
+
+//File :  ft_sort_by_time_long_n_to_m_elem.c
+t_data  *ft_sort_by_time_long_n_to_m_elem(t_data *data, int long_len, int end);
+
+
+//File :  ft_sort_by_time_short_n_to_m_elem.c
+t_data  *ft_sort_by_time_short_n_to_m_elem(t_data *data, int short_len, int end);
+
+
+//File : ft_sort_dirs_paths_by_time.c 
+int     ft_get_path_time(t_data *data, int i);
+void    ft_swap_dir_path(t_data *data, int i, int j);
+int     ft_cmp_time_dir_path(time_t a, time_t b);
+int     ft_sort_array_paths_by_time(t_data *data);
+int     ft_allocate_path_time(t_data *data);
+int     ft_sort_dirs_paths_by_time(t_data *data);
+
 
 //----------------ft_printf
 

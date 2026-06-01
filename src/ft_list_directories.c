@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 23:57:34 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/30 01:02:06 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/05/31 21:09:40 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,11 +81,14 @@ int	ft_list_directories(t_data *data)
 	int	i;
 	int	short_len;
 	int	long_len;
+	int	we_reach;
 
 	long_len = 0;
 	short_len = 0;
 	i = 0;
-	int	we_reach = 0;
+	we_reach = 0;
+	if (data->paths.nbr_of_paths > 1 && data->opt.op_t_flag)
+		ft_sort_dirs_paths_by_time(data);
 	while (i < data->paths.nbr_of_paths)
 	{
 		if (data->opt.op_l_flag)

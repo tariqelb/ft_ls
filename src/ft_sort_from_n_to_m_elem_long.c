@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ls_sort_data.c                                  :+:      :+:    :+:   */
+/*   ft_sort_from_n_to_m_elem_long.c                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2026/05/25 01:35:48 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/01 01:27:32 by tel-bouh         ###   ########.fr       */
+/*   Created: 2026/05/30 22:58:03 by tel-bouh          #+#    #+#             */
+/*   Updated: 2026/05/30 23:59:50 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,22 +35,46 @@ static void ft_copy_long_content(t_long_format *dst, t_long_format *src)
 	dst->total = src->total;
 }
 
-t_long_format *ft_get_start_long(t_long_format *head, int long_len)
+void    ft_swap_short_data(t_short_format *a, t_short_format *b)
 {
-	int i = 0;
+    t_short_format tmp;
+    t_short_format *next_a;
+    t_short_format *next_b;
 
-	while (head && i < long_len)
-	{
-	    head = head->next;
-	    i++;
-	}
-	return (head);
+    next_a = a->next;
+    next_b = b->next;
+
+    ft_copy_short_content(&tmp, a);
+    ft_copy_short_content(a, b);
+    ft_copy_short_content(b, &tmp);
+
+    a->next = next_a;
+    b->next = next_b;
 }
 
-t_data *ft_sort_format_data_from_elem_n_long(t_data *data, int long_len)
+void    ft_swap_long_data(t_long_format *a, t_long_format *b)
 {
-	t_long_format *cur;
-	int swapped;
+    t_long_format tmp;
+    t_long_format *next_a;
+    t_long_format *next_b;
+
+    next_a = a->next;
+    next_b = b->next;
+
+    ft_copy_long_content(&tmp, a);
+    ft_copy_long_content(a, b);
+    ft_copy_long_content(b, &tmp);
+
+    a->next = next_a;
+    b->next = next_b;
+}
+
+t_data *ft_sort_format_data_from_elem_n_to_m_long(t_data *data, int long_len, int end)
+{
+	//printf("ft_sort_format_data_from_elem_n_to_m_long {%d}~{%d}\n ", long_len, end);
+	t_long_format	*cur;
+	int		swapped;
+	int		i;
 
 	if (!data || !data->lng_format)
 	    return (data);
@@ -62,45 +86,31 @@ t_data *ft_sort_format_data_from_elem_n_long(t_data *data, int long_len)
 
 		// 🔥 always restart from offset (not head)
 		cur = ft_get_start_long(data->lng_format, long_len);
-
-		while (cur && cur->next)
+		i = long_len;
+		//printf("iSwap : %s [%s]\n", cur->filename, cur->next->filename);
+		while (cur && cur->next && i < long_len + end - 1)
 		{
-			if (data->opt.op_r_flag && ft_strcmp(cur->filename, cur->next->filename) < 0)
+			//printf("in Swap : %s [%s]\n", cur->filename, cur->next->filename);
+			if (ft_strcmp(cur->filename, cur->next->filename) > 0)
 			{
-				ft_swap_long_data(cur, cur->next);
-				swapped = 1;
-				break; // 🔥 go back to offset start
-			}
-			else if (data->opt.op_r_flag == 0 && ft_strcmp(cur->filename, cur->next->filename) > 0)
-			{
+				//printf("Swape : %s [%s]\n", cur->filename, cur->next->filename);
 				ft_swap_long_data(cur, cur->next);
 				swapped = 1;
 				break; // 🔥 go back to offset start
 			}
 			cur = cur->next;
+			i++;
 		}
 	}
 
 	return (data);
 }
 
-t_short_format *ft_get_start_short(t_short_format *head, int short_len)
+t_data *ft_sort_format_data_from_elem_n_to_m_short(t_data *data, int short_len, int end)
 {
-	int i = 0;
-
-	while (head && i < short_len)
-	{
-		//printf("head : : : [%s]\n ", head->data);
-	    head = head->next;
-	    i++;
-	}
-	return (head);
-}
-
-t_data *ft_sort_format_data_from_elem_n_short(t_data *data, int short_len)
-{
-	t_short_format *cur;
-	int swapped;
+	t_short_format	*cur;
+	int		swapped;
+	int		i;
 
 	if (!data || !data->shrt_format)
 	    return (data);
@@ -113,24 +123,24 @@ t_data *ft_sort_format_data_from_elem_n_short(t_data *data, int short_len)
 
 		// 🔥 always restart from offset (not head)
 		cur = ft_get_start_short(data->shrt_format, short_len);
-
-		while (cur && cur->next)
+		i = short_len;
+		//printf("iSwap : [%s] [%s]\n", cur->data, cur->next->data);
+		while (cur && cur->next && i < short_len + end - 1)
 		{
-			if (data->opt.op_r_flag && ft_strcmp(cur->data, cur->next->data) < 0)
+		//	printf("in Swap : [%s] [%s]\n", cur->data, cur->next->data);
+			if (ft_strcmp(cur->data, cur->next->data) > 0)
 			{
-				ft_swap_short_data(cur, cur->next);
-				swapped = 1;
-				break; // 🔥 go back to offset start
-			}
-			else if (data->opt.op_r_flag == 0 && ft_strcmp(cur->data, cur->next->data) > 0)
-			{
+		//printf("Swapee : [%s] [%s]\n", cur->data, cur->next->data);
+
 				ft_swap_short_data(cur, cur->next);
 				swapped = 1;
 				break; // 🔥 go back to offset start
 			}
 			cur = cur->next;
+			i++;
 		}
 	}
 
 	return (data);
 }
+
