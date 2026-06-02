@@ -26,7 +26,7 @@ t_data	*ft_sort_by_time_long_all_data(t_data *data)
         cur = data->lng_format;
         while (cur && cur->next)
         {
-		if (data->opt.op_r_flag && (!ft_cmp_time(cur, cur->next)))
+		if (data->opt.op_r_flag && (!ft_cmp_time(data, cur, cur->next)))
                 {
                         tmp = cur->next;
 
@@ -47,7 +47,7 @@ t_data	*ft_sort_by_time_long_all_data(t_data *data)
                         prev  = NULL;
                         continue;
                 }
-		if (data->opt.op_r_flag == 0 && (ft_cmp_time(cur, cur->next)))
+		if (data->opt.op_r_flag == 0 && (ft_cmp_time(data, cur, cur->next)))
                 {
                         tmp = cur->next;
 
@@ -92,7 +92,7 @@ t_data	*ft_sort_by_time_short_all_data(t_data *data)
 
         while (cur && cur->next)
         {
-		if (data->opt.op_r_flag && (!ft_cmp_time_short(cur, cur->next)))
+		if (data->opt.op_r_flag && (!ft_cmp_time_short(data, cur, cur->next)))
 		{
                         tmp = cur->next;
                         cur->next = tmp->next;
@@ -106,7 +106,7 @@ t_data	*ft_sort_by_time_short_all_data(t_data *data)
                         prev  = NULL;
                         continue;
 		}
-                if (data->opt.op_r_flag == 0 && ft_cmp_time_short(cur, cur->next))
+                if (data->opt.op_r_flag == 0 && ft_cmp_time_short(data, cur, cur->next))
                 {
                         tmp = cur->next;
                         cur->next = tmp->next;

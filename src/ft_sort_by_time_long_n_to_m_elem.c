@@ -29,13 +29,13 @@ t_data	*ft_sort_by_time_long_n_to_m_elem(t_data *data, int long_len, int end)
 		i = long_len;
 		while (cur && cur->next && i < long_len + end - 1)
 		{
-			if (data->opt.op_r_flag && ft_cmp_time(cur, cur->next) == 0)
+			if (data->opt.op_r_flag && ft_cmp_time(data, cur, cur->next) == 0)
 			{
 				ft_swap_long_data(cur, cur->next);
 				swapped = 1;
 				break;
 			}
-			if (data->opt.op_r_flag == 0 && ft_cmp_time(cur, cur->next) == 1)
+			if (data->opt.op_r_flag == 0 && ft_cmp_time(data, cur, cur->next) == 1)
 			{
 				ft_swap_long_data(cur, cur->next);
 				swapped = 1;

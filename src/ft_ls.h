@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 00:24:48 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/31 21:11:07 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/02 17:36:35 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -222,12 +222,12 @@ void    ft_print_padded_size(size_t size, int max_width);
 
 
 //File: ft_sort_by_time_short_n_elem.c
-int     ft_cmp_time_short(t_short_format *a, t_short_format *b);
+int     ft_cmp_time_short(t_data *data, t_short_format *a, t_short_format *b);
 t_data  *ft_sort_by_time_short_n_elem(t_data *data, int short_len);
 
 
 //File: ft_sort_by_time_long_n_elem.c
-int     ft_cmp_time(t_long_format *a, t_long_format *b);
+int     ft_cmp_time(t_data *data, t_long_format *a, t_long_format *b);
 t_data  *ft_sort_by_time_long_n_elem(t_data *data, int long_len);
 
 //File : ft_sort_by_time_short_all_data.c

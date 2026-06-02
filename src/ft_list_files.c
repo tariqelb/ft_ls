@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 00:00:14 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/29 01:39:43 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/02 15:31:50 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,13 +16,11 @@ char	ft_check_is_hiden_file(char *path_file)
 {
 	int	len;
 
-	printf("file name : %s\n", path_file);
 	len = ft_strlen(path_file);
 	while (len > 0 && path_file[len - 1] != '/')
 	{
 		len--;	
 	}
-	printf("file name : %c\n", path_file[len]);
 	if (path_file[len] == '.')
 		return (1);
 	return (0);
@@ -126,6 +124,10 @@ int	ft_list_files(t_data *data)
 		else
 			data = ft_sort_format_data_from_elem_n_short(data, 0);
 	}
+	printf("--- %d %d\n", data->files.nbr_of_files, data->paths.nbr_of_paths);
+	if (data->opt.op_l_flag && data->files.nbr_of_files == 0 && data->paths.nbr_of_paths == 0)
+		ft_putstr_std(".:\n", 1);
+
 	if (data->opt.op_l_flag)
 		ft_display_long_format(data);
 	else

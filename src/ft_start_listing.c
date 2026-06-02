@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 23:30:34 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/01 01:09:18 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/02 16:02:02 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,10 @@ int	ft_iterate_recursion_long_format(t_data *data, int we_reach)
 			//printf("____before %d [%d]******************************************************\n", len , nbr_of_elem);
 			//ft_display_long_format(data);
 			//printf("____before %d [%d]******************************************************\n", len , nbr_of_elem);
-			data = ft_sort_format_data_from_elem_n_to_m_long(data, i + 1, nbr_of_elem);
+			if (data->opt.op_t_flag)
+				data = ft_sort_by_time_long_n_to_m_elem(data, i + 1, nbr_of_elem);
+			else
+				data = ft_sort_format_data_from_elem_n_to_m_long(data, i + 1, nbr_of_elem);
 			ft_display_long_format_n_to_m_data(data, i + 1 , nbr_of_elem);
 			//exit(1);
 			//printf("____after******************************************************\n");
@@ -105,9 +108,7 @@ int	ft_iterate_recursion_short_format(t_data *data, int we_reach)
 			//printf("____before %d [%d]******************************************************\n", len , nbr_of_elem);
 			//ft_display_short_format(data);
 			//printf("____before %d [%d]******************************************************\n", len , nbr_of_elem);
-			if (data->opt.op_t_flag && data->opt.op_l_flag)
-				data = ft_sort_by_time_long_n_to_m_elem(data, i + 1, nbr_of_elem);
-			else if (data->opt.op_t_flag && data->opt.op_l_flag == 0)
+			if (data->opt.op_t_flag)
 				data = ft_sort_by_time_short_n_to_m_elem(data, i + 1, nbr_of_elem);
 			else
 				data = ft_sort_format_data_from_elem_n_to_m_short(data, i + 1, nbr_of_elem);
