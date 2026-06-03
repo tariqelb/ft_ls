@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 00:49:04 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/02 21:12:17 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/03 17:09:22 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,16 +77,18 @@ void ft_display_long_format(t_data *data)
 */
 void	ft_display_short_format(t_data *data)
 {
-    t_short_format *tmp;
-    char            *name;
+    t_short_format	*tmp;
+    char		*name;
+    int			i;
 
     if (!data || !data->shrt_format)
         return;
 
     tmp = data->shrt_format;
-
+    i = 0;
     while (tmp)
     {
+	i++;
         name = (char *)tmp->data;
 
 	if (tmp->is_dir)
@@ -111,8 +113,8 @@ void	ft_display_short_format(t_data *data)
 
         tmp = tmp->next;
     }
-
-    write(1, "\n", 1);
+    if (i)
+    	write(1, "\n", 1);
 }
 
 void ft_display_long_format_n_data(t_data *data, int len)
@@ -183,7 +185,8 @@ void	ft_display_short_format_n_data(t_data *data, int len)
 	t_short_format *tmp;
 	char            *name;
 	int		i;
-
+	int		k;
+	
 	if (!data || !data->shrt_format)
 	    return;
 
@@ -194,6 +197,7 @@ void	ft_display_short_format_n_data(t_data *data, int len)
 		i++;
 		tmp = tmp->next;
 	}
+	k = i;
 	while (tmp)
 	{
 		name = (char *)tmp->data;
@@ -219,9 +223,11 @@ void	ft_display_short_format_n_data(t_data *data, int len)
 			write(1, "  ", 2);
 
 		tmp = tmp->next;
+		i++;
 	}
 
-	write(1, "\n", 1);
+	if (i != k)
+		write(1, "\n", 1);
 }
 
 void ft_display_long_format_n_to_m_data(t_data *data, int start, int end)
@@ -298,7 +304,8 @@ void	ft_display_short_format_n_to_m_data(t_data *data, int start, int end)
 	t_short_format *tmp;
 	char            *name;
 	int		i;
-
+	int		k;
+	
 	if (!data || !data->shrt_format)
 	    return;
 
@@ -309,6 +316,7 @@ void	ft_display_short_format_n_to_m_data(t_data *data, int start, int end)
 		i++;
 		tmp = tmp->next;
 	}
+	k = i;
 	while (tmp && i < start + end)
 	{
 		name = (char *)tmp->data;
@@ -336,6 +344,6 @@ void	ft_display_short_format_n_to_m_data(t_data *data, int start, int end)
 		tmp = tmp->next;
 		i++;
 	}
-
-	write(1, "\n", 1);
+	if (i != k)
+		write(1, "\n", 1);
 }

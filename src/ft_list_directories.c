@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 23:57:34 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/02 20:44:04 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/03 17:13:03 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,7 @@ int	ft_list_dir(t_data *data, int d_index)
 	dir = opendir(data->paths.path[d_index]);
 	if (!dir)
 		return (1);
-	if (data->paths.nbr_of_paths > 1 || data->opt.op_R_flag)
+	if (data->paths.nbr_of_paths > 1 || data->opt.op_R_flag || data->files.nbr_of_files)
 		ft_print_folder_path(data, data->paths.path[d_index]);
 	if (data->opt.op_l_flag)
 		total = ft_get_total(data, data->paths.path[d_index] );

@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/24 01:22:33 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/30 00:03:16 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/03 17:15:07 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int     ft_print_folder_path(t_data *data, char *path)
 {
-        if (data->opt.op_R_flag || data->opt.op_a_flag || (data->paths.nbr_of_paths > 1 && data->opt.op_R_flag == 0))
+        if (data->opt.op_R_flag || data->opt.op_a_flag || (data->paths.nbr_of_paths > 1 && data->opt.op_R_flag == 0) || (data->files.nbr_of_files))
         {
 		if (data->first_dir)
                 	ft_putstr_std("\n", 1);

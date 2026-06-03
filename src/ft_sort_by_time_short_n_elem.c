@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 22:23:25 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/31 19:46:32 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/03 16:23:54 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ int	ft_cmp_time_short(t_data *data, t_short_format *a, t_short_format *b)
 	if (a->raw_time > b->raw_time)
 	    return (0);
 	ascii = ft_strcmp(a->data, b->data);
-	if (data->opt.op_r_flag == 0 && ascii > 0)
+	if (data->opt.op_r_flag == 0 && ascii < 0)
 		return (1);
-	else if (data->opt.op_r_flag == 0 && ascii < 0)
+	else if (data->opt.op_r_flag == 0 && ascii > 0)
 		return (0);
 	if (data->opt.op_r_flag == 1 && ascii > 0)
 		return (0);
