@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 00:49:04 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/31 19:50:19 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/02 21:12:17 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,8 +89,6 @@ void	ft_display_short_format(t_data *data)
     {
         name = (char *)tmp->data;
 
-	//write(1, tmp->prnt_dir, ft_strlen(tmp->prnt_dir));
-        //write(1, " ", 1);
 	if (tmp->is_dir)
 	{
 		write(1, "\033[94m", 5); // start blue
@@ -137,9 +135,6 @@ void ft_display_long_format_n_data(t_data *data, int len)
 
 	while (tmp)
 	{
-		//write(1, tmp->prnt_dir, ft_strlen(tmp->prnt_dir));
-		//write(1, " ", 1);
-
 		write(1, tmp->permission, 10);
 		write(1, " ", 1);
 
@@ -153,7 +148,6 @@ void ft_display_long_format_n_data(t_data *data, int len)
 		write(1, " ", 1);
 
 		ft_print_padded_size(tmp->size, max_size_width);
-		//ft_put_size_t(tmp->size, 1);
 		write(1, " ", 1);
 
 		write(1, tmp->time, ft_strlen(tmp->time));
@@ -229,7 +223,6 @@ void	ft_display_short_format_n_data(t_data *data, int len)
 
 	write(1, "\n", 1);
 }
-
 
 void ft_display_long_format_n_to_m_data(t_data *data, int start, int end)
 {

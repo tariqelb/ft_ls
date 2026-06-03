@@ -3,6 +3,7 @@ NAME= ft_ls.out
 SRCS=	./ft_add_cwd.c \
 	./ft_copy_delete_args.c \
 	./ft_diplay_format.c \
+	./ft_display_format_column.c \
 	./ft_fill_permisions.c \
 	./ft_get_files_and_check_errors.c \
 	./ft_get_options_and_check_errors.c \

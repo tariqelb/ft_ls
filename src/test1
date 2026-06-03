@@ -1,91 +1,123 @@
-.:
-total 512
-drwxrwxr-x 3 tariq tariq  4096 Jun  2 15:33 .
-drwxrwxr-x 5 tariq tariq  4096 May 15 20:24 ..
--rw-rw-r-- 1 tariq tariq  1930 May 29 18:01 ft_add_cwd.c
--rw-rw-r-- 1 tariq tariq  1694 May 29 18:07 ft_copy_delete_args.c
--rw-rw-r-- 1 tariq tariq  7148 May 31 19:50 ft_diplay_format.c
--rw-rw-r-- 1 tariq tariq  1830 May 16 23:56 ft_fill_permisions.c
--rw-rw-r-- 1 tariq tariq  2619 May 26 01:10 ft_get_files_and_check_errors.c
--rw-rw-r-- 1 tariq tariq  1243 May 15 20:15 ft_get_options_and_check_errors.c
--rw-rw-r-- 1 tariq tariq  2823 May 26 00:59 ft_get_paths_and_check_errors.c
--rw-rw-r-- 1 tariq tariq  1700 May 17 00:39 ft_get_time_and_owner.c
--rw-rw-r-- 1 tariq tariq  4661 Jun  2 15:33 ft_list_directories.c
--rw-r--r-- 1 tariq tariq 20480 Jun  2 15:33 .ft_list_directories.c.swp
--rw-rw-r-- 1 tariq tariq  4098 Jun  2 15:31 ft_list_files.c
--rw-r--r-- 1 tariq tariq 16384 Jun  2 15:32 .ft_list_files.c.swp
--rw-rw-r-- 1 tariq tariq  5280 May 30 23:42 ft_list_folder_at.c
--rw-r--r-- 1 tariq tariq 20480 May 30 23:42 .ft_list_folder_at.c.swp
--rw-rw-r-- 1 tariq tariq  4637 May 30 02:51 ft_list_folder_long.c
--rw-r--r-- 1 tariq tariq 20480 May 30 02:51 .ft_list_folder_long.c.swp
--rw-rw-r-- 1 tariq tariq  2326 May 15 20:12 ft_loop_over_options.c
--rw-rw-r-- 1 tariq tariq  3605 May 30 00:03 ft_ls.c
--rw-r--r-- 1 tariq tariq 20480 May 30 00:03 .ft_ls.c.swp
--rw-rw-r-- 1 tariq tariq  9457 May 31 21:11 ft_ls.h
--rw-r--r-- 1 tariq tariq 28672 May 31 21:11 .ft_ls.h.swp
--rwxrwxr-x 1 tariq tariq 56088 Jun  2 15:33 ft_ls.out
--rw-rw-r-- 1 tariq tariq  3539 Jun  1 01:27 ft_ls_sort_data.c
--rw-r--r-- 1 tariq tariq 16384 Jun  1 01:27 .ft_ls_sort_data.c.swp
--rw-rw-r-- 1 tariq tariq  6534 May 25 02:24 ft_ls_sort_format.c
--rw-rw-r-- 1 tariq tariq  2302 May 28 22:18 ft_ls_struct_utils.c
--rw-rw-r-- 1 tariq tariq  4036 May 28 22:18 ft_ls_struct_utils_two.c
--rw-rw-r-- 1 tariq tariq  3507 May 20 22:32 ft_ls_utils_one.c
--rw-rw-r-- 1 tariq tariq  1423 May 28 21:46 ft_ls_utils_two.c
--rw-rw-r-- 1 tariq tariq  2359 May 30 00:03 ft_print_dir_path_and_total.c
--rw-r--r-- 1 tariq tariq 12288 Jun  2 15:20 .ft_print_dir_path_and_total.c.swp
--rw-rw-r-- 1 tariq tariq  2244 May 17 23:07 ft_printf_utils.c
--rw-rw-r-- 1 tariq tariq  1794 May 31 19:46 ft_sort_by_time_long_n_elem.c
--rw-r--r-- 1 tariq tariq 12288 May 31 19:46 .ft_sort_by_time_long_n_elem.c.swp
--rw-rw-r-- 1 tariq tariq  1612 May 31 19:52 ft_sort_by_time_long_n_to_m_elem.c
--rw------- 1 tariq tariq 12288 May 31 19:52 .ft_sort_by_time_long_n_to_m_elem.c.swp
--rw-rw-r-- 1 tariq tariq  4478 May 29 01:16 ft_sort_by_time_short_all_data.c
--rw-rw-r-- 1 tariq tariq  1964 May 31 19:46 ft_sort_by_time_short_n_elem.c
--rw-r--r-- 1 tariq tariq 12288 May 31 19:46 .ft_sort_by_time_short_n_elem.c.swp
--rw-rw-r-- 1 tariq tariq  1768 May 31 19:52 ft_sort_by_time_short_n_to_m_elem.c
--rw------- 1 tariq tariq 12288 May 31 19:52 .ft_sort_by_time_short_n_to_m_elem.c.swp
--rw-rw-r-- 1 tariq tariq  2610 May 31 21:11 ft_sort_dirs_paths_by_time.c
--rw------- 1 tariq tariq 12288 May 31 21:11 .ft_sort_dirs_paths_by_time.c.swp
--rw-rw-r-- 1 tariq tariq  4027 May 30 23:59 ft_sort_from_n_to_m_elem_long.c
--rw------- 1 tariq tariq 20480 May 30 23:59 .ft_sort_from_n_to_m_elem_long.c.swp
--rw-rw-r-- 1 tariq tariq  5520 Jun  1 01:09 ft_start_listing.c
--rw-r--r-- 1 tariq tariq 24576 Jun  1 01:09 .ft_start_listing.c.swp
--rw-rw-r-- 1 tariq tariq   985 May 31 21:06 Makefile
--rw-r--r-- 1 tariq tariq 12288 May 31 21:06 .Makefile.swp
--rw-rw-r-- 1 tariq tariq     0 Jun  2 15:47 test1
--rw-rw-r-- 1 tariq tariq  5003 Jun  2 15:17 test2
-drwxrwxr-x 4 tariq tariq  4096 May 19 00:46 test_dir
-
-./test_dir:
-total 16
-drwxrwxr-x 4 tariq tariq 4096 May 19 00:46 .
-drwxrwxr-x 3 tariq tariq 4096 Jun  2 15:33 ..
-drwxrwxr-x 3 tariq tariq 4096 May 19 00:47 dir1
--rw-rw-r-- 1 tariq tariq    0 May 19 00:44 file1
--rw-rw-r-- 1 tariq tariq    0 May 19 00:44 file2
-drwxrwxr-x 3 tariq tariq 4096 May 19 00:46 foulder1
-
-./test_dir/dir1:
-total 12
-drwxrwxr-x 3 tariq tariq 4096 May 19 00:47 .
-drwxrwxr-x 4 tariq tariq 4096 May 19 00:46 ..
--rw-rw-r-- 1 tariq tariq    0 May 19 00:47 file1
-drwxrwxr-x 2 tariq tariq 4096 May 19 00:47 folder2
-
-./test_dir/dir1/folder2:
-total 8
-drwxrwxr-x 2 tariq tariq 4096 May 19 00:47 .
-drwxrwxr-x 3 tariq tariq 4096 May 19 00:47 ..
-
-./test_dir/foulder1:
-total 12
-drwxrwxr-x 3 tariq tariq 4096 May 19 00:46 .
-drwxrwxr-x 4 tariq tariq 4096 May 19 00:46 ..
-drwxrwxr-x 2 tariq tariq 4096 May 19 00:47 dirf1
--rw-rw-r-- 1 tariq tariq    0 May 19 00:46 f_foulder1
--rw-rw-r-- 1 tariq tariq    0 May 19 00:46 f_foulder2
-
-./test_dir/foulder1/dirf1:
-total 8
-drwxrwxr-x 2 tariq tariq 4096 May 19 00:47 .
-drwxrwxr-x 3 tariq tariq 4096 May 19 00:46 ..
--rw-rw-r-- 1 tariq tariq    0 May 19 00:47 file1
+Makefile                             ft_ls_sort_data.c
+ft_add_cwd.c                         ft_ls_sort_format.c
+ft_copy_delete_args.c                ft_ls_struct_utils.c
+ft_diplay_format.c                   ft_ls_struct_utils_two.c
+ft_display_format_column.c           ft_ls_utils_one.c
+ft_fill_permisions.c                 ft_ls_utils_two.c
+ft_get_files_and_check_errors.c      ft_print_dir_path_and_total.c
+ft_get_options_and_check_errors.c    ft_printf_utils.c
+ft_get_paths_and_check_errors.c      ft_sort_by_time_long_n_elem.c
+ft_get_time_and_owner.c              ft_sort_by_time_long_n_to_m_elem.c
+ft_list_directories.c                ft_sort_by_time_short_all_data.c
+ft_list_files.c                      ft_sort_by_time_short_n_elem.c
+ft_list_folder_at.c                  ft_sort_by_time_short_n_to_m_elem.c
+ft_list_folder_long.c                ft_sort_dirs_paths_by_time.c
+ft_loop_over_options.c               ft_sort_from_n_to_m_elem_long.c
+ft_ls.c                              ft_start_listing.c
+ft_ls.h                              test1
+ft_ls.out                            [94mtest_dir[0m
+(count : [36], cols - 1 [35], : cols [36])
+row : [1], term_width [80], col_width [39]
+if 1404
+(count : [36], cols - 1 [34], : cols [35])
+row : [2], term_width [80], col_width [39]
+if 1365
+(count : [36], cols - 1 [33], : cols [34])
+row : [2], term_width [80], col_width [39]
+if 1326
+(count : [36], cols - 1 [32], : cols [33])
+row : [2], term_width [80], col_width [39]
+if 1287
+(count : [36], cols - 1 [31], : cols [32])
+row : [2], term_width [80], col_width [39]
+if 1248
+(count : [36], cols - 1 [30], : cols [31])
+row : [2], term_width [80], col_width [39]
+if 1209
+(count : [36], cols - 1 [29], : cols [30])
+row : [2], term_width [80], col_width [39]
+if 1170
+(count : [36], cols - 1 [28], : cols [29])
+row : [2], term_width [80], col_width [39]
+if 1131
+(count : [36], cols - 1 [27], : cols [28])
+row : [2], term_width [80], col_width [39]
+if 1092
+(count : [36], cols - 1 [26], : cols [27])
+row : [2], term_width [80], col_width [39]
+if 1053
+(count : [36], cols - 1 [25], : cols [26])
+row : [2], term_width [80], col_width [39]
+if 1014
+(count : [36], cols - 1 [24], : cols [25])
+row : [2], term_width [80], col_width [39]
+if 975
+(count : [36], cols - 1 [23], : cols [24])
+row : [2], term_width [80], col_width [39]
+if 936
+(count : [36], cols - 1 [22], : cols [23])
+row : [2], term_width [80], col_width [39]
+if 897
+(count : [36], cols - 1 [21], : cols [22])
+row : [2], term_width [80], col_width [39]
+if 858
+(count : [36], cols - 1 [20], : cols [21])
+row : [2], term_width [80], col_width [39]
+if 819
+(count : [36], cols - 1 [19], : cols [20])
+row : [2], term_width [80], col_width [39]
+if 780
+(count : [36], cols - 1 [18], : cols [19])
+row : [2], term_width [80], col_width [39]
+if 741
+(count : [36], cols - 1 [17], : cols [18])
+row : [2], term_width [80], col_width [39]
+if 702
+(count : [36], cols - 1 [16], : cols [17])
+row : [3], term_width [80], col_width [39]
+if 663
+(count : [36], cols - 1 [15], : cols [16])
+row : [3], term_width [80], col_width [39]
+if 624
+(count : [36], cols - 1 [14], : cols [15])
+row : [3], term_width [80], col_width [39]
+if 585
+(count : [36], cols - 1 [13], : cols [14])
+row : [3], term_width [80], col_width [39]
+if 546
+(count : [36], cols - 1 [12], : cols [13])
+row : [3], term_width [80], col_width [39]
+if 507
+(count : [36], cols - 1 [11], : cols [12])
+row : [3], term_width [80], col_width [39]
+if 468
+(count : [36], cols - 1 [10], : cols [11])
+row : [4], term_width [80], col_width [39]
+if 429
+(count : [36], cols - 1 [9], : cols [10])
+row : [4], term_width [80], col_width [39]
+if 390
+(count : [36], cols - 1 [8], : cols [9])
+row : [4], term_width [80], col_width [39]
+if 351
+(count : [36], cols - 1 [7], : cols [8])
+row : [5], term_width [80], col_width [39]
+if 312
+(count : [36], cols - 1 [6], : cols [7])
+row : [6], term_width [80], col_width [39]
+if 273
+(count : [36], cols - 1 [5], : cols [6])
+row : [6], term_width [80], col_width [39]
+if 234
+(count : [36], cols - 1 [4], : cols [5])
+row : [8], term_width [80], col_width [39]
+if 195
+(count : [36], cols - 1 [3], : cols [4])
+row : [9], term_width [80], col_width [39]
+if 156
+(count : [36], cols - 1 [2], : cols [3])
+row : [12], term_width [80], col_width [39]
+if 117
+(count : [36], cols - 1 [1], : cols [2])
+row : [18], term_width [80], col_width [39]
+if 78

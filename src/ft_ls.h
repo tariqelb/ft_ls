@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 00:24:48 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/02 17:36:35 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/02 20:43:50 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@
 # include <time.h>
 # include <string.h>
 # include <stddef.h>
+# include <sys/ioctl.h>
 
 typedef struct	s_options
 {
@@ -175,7 +176,8 @@ void    ft_display_short_format_n_data(t_data *data, int len);
 void    ft_display_long_format_n_to_m_data(t_data *data, int start, int end);
 void    ft_display_short_format_n_to_m_data(t_data *data, int start, int end);
 
-
+void	ft_display_short_format_column(t_data *data);
+void    ft_display_short_format_n_data_column(t_data *data, int start);
 
 //File: ft_list_directories.c
 int     ft_get_long_format_dir(t_data *data, char *entry_name, int d_index, struct stat st);
