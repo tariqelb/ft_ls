@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/19 02:08:59 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/30 02:50:22 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/03 20:45:03 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	ft_list_folder_long_format(t_data *data, char *filename, char *prnt_dir)
 	closedir(dir);
 	ft_display_total(data, total);
 	if (data->opt.op_t_flag)
-		data = ft_sort_by_time_long_n_elem(data, long_len);
+		data = ft_sort_by_time_long_n_elem(data, long_len, 0);
 	else
 		data = ft_sort_format_data_from_elem_n_long(data, long_len);
 	return (nbr_of_elem);
@@ -135,7 +135,7 @@ int	ft_list_folder_short_format(t_data *data, char *filename, char *prnt_dir)
 	}
 	closedir(dir);
 	if (data->opt.op_t_flag)
-		data = ft_sort_by_time_short_n_elem(data, short_len);
+		data = ft_sort_by_time_short_n_elem(data, short_len, 0);
 	else
 		data = ft_sort_format_data_from_elem_n_short(data, short_len);
 	return (nbr_of_elem);
