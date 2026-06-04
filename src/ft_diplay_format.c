@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/17 00:49:04 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/03 17:09:22 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/04 01:34:16 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,19 @@ void ft_display_long_format(t_data *data)
 		}
 		else
 		{
-			if (tmp->filename[0] == '.')
+			if (tmp->is_exe_or_link == 2)
+			{
+				write(1, "\033[36m", 5); // start cr
+				write(1, tmp->filename, strlen(tmp->filename));
+				write(1, "\033[0m", 4);  // reset
+			}
+			else if (tmp->is_exe_or_link == 1)
+			{
+				write(1, "\033[32m", 5); // start blue
+				write(1, tmp->filename, strlen(tmp->filename));
+				write(1, "\033[0m", 4);  // reset
+			}
+			else if (tmp->filename[0] == '.')
 			{
 				write(1, "\033[37m", 5); // start blue
 				write(1, tmp->filename, strlen(tmp->filename));
@@ -99,7 +111,19 @@ void	ft_display_short_format(t_data *data)
 	}
 	else
 	{
-		if (name[0] == '.')
+		if (tmp->is_exe_or_link == 2)
+		{
+			write(1, "\033[36m", 5); // start blue
+			write(1, name, strlen(name));
+			write(1, "\033[0m", 4);  // reset
+		}
+		else if (tmp->is_exe_or_link == 1)
+		{
+			write(1, "\033[32m", 5); // start blue
+			write(1, name, strlen(name));
+			write(1, "\033[0m", 4);  // reset
+		}
+		else if (name[0] == '.')
 		{
 			write(1, "\033[37m", 5); // start blue
 			write(1, name, strlen(name));
@@ -163,7 +187,19 @@ void ft_display_long_format_n_data(t_data *data, int len)
 		}
 		else
 		{
-			if (tmp->filename[0] == '.')
+			if (tmp->is_exe_or_link == 2)
+			{
+				write(1, "\033[36m", 5); // start blue
+				write(1, tmp->filename, strlen(tmp->filename));
+				write(1, "\033[0m", 4);  // reset
+			}
+			else if (tmp->is_exe_or_link == 1)
+			{
+				write(1, "\033[32m", 5); // start blue
+				write(1, tmp->filename, strlen(tmp->filename));
+				write(1, "\033[0m", 4);  // reset
+			}	
+			else if (tmp->filename[0] == '.')
 			{
 				write(1, "\033[37m", 5); // start blue
 				write(1, tmp->filename, strlen(tmp->filename));
@@ -210,7 +246,19 @@ void	ft_display_short_format_n_data(t_data *data, int len)
 		}
 		else
 		{
-			if (name[0] == '.')
+			if (tmp->is_exe_or_link == 2)
+			{
+				write(1, "\033[36m", 5); // start blue
+				write(1, name, strlen(name));
+				write(1, "\033[0m", 4);  // reset
+			}
+			else if (tmp->is_exe_or_link == 1)
+			{
+				write(1, "\033[32m", 5); // start blue
+				write(1, name, strlen(name));
+				write(1, "\033[0m", 4);  // reset
+			}
+			else if (name[0] == '.')
 			{
 				write(1, "\033[37m", 5); // start blue
 				write(1, name, strlen(name));
@@ -280,7 +328,19 @@ void ft_display_long_format_n_to_m_data(t_data *data, int start, int end)
 		}
 		else
 		{
-			if (tmp->filename[0] == '.')
+			if (tmp->is_exe_or_link == 2)
+			{
+				write(1, "\033[36m", 5); // start blue
+				write(1, tmp->filename, strlen(tmp->filename));
+				write(1, "\033[0m", 4);  // reset
+			}
+			else if (tmp->is_exe_or_link == 1)
+			{
+				write(1, "\033[32m", 5); // start blue
+				write(1, tmp->filename, strlen(tmp->filename));
+				write(1, "\033[0m", 4);  // reset
+			}
+			else if (tmp->filename[0] == '.')
 			{
 				write(1, "\033[37m", 5); // start blue
 				write(1, tmp->filename, strlen(tmp->filename));
@@ -329,7 +389,19 @@ void	ft_display_short_format_n_to_m_data(t_data *data, int start, int end)
 		}
 		else
 		{
-			if (name[0] == '.')
+			if (tmp->is_exe_or_link == 2)
+			{
+				write(1, "\033[36m", 5); // start blue
+				write(1, name, strlen(name));
+				write(1, "\033[0m", 4);  // reset
+			}
+			else if (tmp->is_exe_or_link == 1)
+			{
+				write(1, "\033[32m", 5); // start green
+				write(1, name, strlen(name));
+				write(1, "\033[0m", 4);  // reset
+			}
+			else if (name[0] == '.')
 			{
 				write(1, "\033[37m", 5); // start blue
 				write(1, name, strlen(name));

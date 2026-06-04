@@ -23,6 +23,7 @@ SRCS=	./ft_add_cwd.c \
 	./ft_ls_utils_two.c \
 	./ft_print_dir_path_and_total.c \
 	./ft_printf_utils.c \
+	./ft_set_exec_and_link_status.c \
 	./ft_sort_dirs_paths_by_time.c \
 	./ft_sort_by_time_long_n_elem.c \
 	./ft_sort_by_time_long_n_to_m_elem.c \

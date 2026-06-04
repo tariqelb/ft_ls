@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 23:24:26 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/28 22:18:46 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/04 01:41:31 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,28 @@ t_long_format   *ft_new_long_node_dir(t_data *data, char *entry_name, struct sta
                 i++;
         }
         node->prnt_dir[i] = '\0';
-//	printf("---> [%s] [%s] [%d]\n", entry_name, prnt_dir, S_ISDIR(st.st_mode));
-	if(S_ISDIR(st.st_mode))
-		node->is_dir = 1;
+	printf("node name %s   ", node->filename);
+	if (S_ISLNK(st.st_mode))
+	{
+	    node->is_dir = 0;
+	    node->is_exe_or_link = 2;
+		printf("enter 1 %d\n", node->is_exe_or_link);
+	}
+	else if (S_ISDIR(st.st_mode))
+	{
+	    node->is_dir = 1;
+	    node->is_exe_or_link = 0;
+		printf("enter 2 %d\n", node->is_exe_or_link);
+	}
 	else
-		node->is_dir = 0;
+	{
+	    node->is_dir = 0;
+	    if (st.st_mode & (S_IXUSR | S_IXGRP | S_IXOTH))
+		node->is_exe_or_link = 1;
+	    else
+		node->is_exe_or_link = 0;
+		printf("enter 3 %d\n", node->is_exe_or_link);
+	}
         return (node);
 }
 
@@ -82,9 +99,28 @@ t_long_format *ft_new_long_node(t_data *data, int i, struct stat st, char *prnt_
 		j++;
 	}
 	node->prnt_dir[j] = '\0';
-
-	node->is_dir = S_ISDIR(st.st_mode);
-
+	printf("node name %s   ", node->filename);
+	if (S_ISLNK(st.st_mode))
+	{
+	    node->is_dir = 0;
+	    node->is_exe_or_link = 2;
+		printf("enter 1 %d\n", node->is_exe_or_link);
+	}
+	else if (S_ISDIR(st.st_mode))
+	{
+	    node->is_dir = 1;
+	    node->is_exe_or_link = 0;
+		printf("enter 2 %d\n", node->is_exe_or_link);
+	}
+	else
+	{
+	    node->is_dir = 0;
+	    if (st.st_mode & (S_IXUSR | S_IXGRP | S_IXOTH))
+		node->is_exe_or_link = 1;
+	    else
+		node->is_exe_or_link = 0;
+		printf("enter 3 %d\n", node->is_exe_or_link);
+	}
 	return (node);
 }
 

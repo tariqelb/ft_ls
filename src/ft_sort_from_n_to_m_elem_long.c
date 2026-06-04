@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 22:58:03 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/30 23:59:50 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/04 02:03:07 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,7 @@ static void ft_copy_short_content(t_short_format *dst, t_short_format *src)
 	memcpy(dst->prnt_dir, src->prnt_dir, 256);
 	dst->is_dir = src->is_dir;
 	dst->raw_time = src->raw_time;
+	dst->is_exe_or_link = src->is_exe_or_link;
 }
 
 static void ft_copy_long_content(t_long_format *dst, t_long_format *src)
@@ -33,6 +34,7 @@ static void ft_copy_long_content(t_long_format *dst, t_long_format *src)
 	memcpy(dst->prnt_dir, src->prnt_dir, 256);
 	dst->is_dir = src->is_dir;
 	dst->total = src->total;
+	dst->is_exe_or_link = src->is_exe_or_link;
 }
 
 void    ft_swap_short_data(t_short_format *a, t_short_format *b)

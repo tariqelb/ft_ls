@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 21:08:29 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/03 16:32:01 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/04 02:17:48 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,16 +63,24 @@ void    ft_print_name(t_short_format *node, int max_len, int is_last)
     name = (char *)node->data;
     len = ft_strlen(name);
 
-    // color
-    if (node->is_dir)
-        write(1, "\033[94m", 5);
-    else if (name[0] == '.')
-        write(1, "\033[37m", 5);
+	char *color = NULL;
 
-    write(1, name, len);
+	if (node->is_dir)
+	    color = "\033[94m";
+	else if (node->is_exe_or_link == 2)
+	    color = "\033[31m";
+	else if (node->is_exe_or_link == 1)
+	    color = "\033[32m";
+	else if (name[0] == '.')
+	    color = "\033[37m";
 
-    if (node->is_dir || name[0] == '.')
-        write(1, "\033[0m", 4);
+	if (color)
+	    write(1, color, 5);
+
+	write(1, name, ft_strlen(name));
+
+	if (color)
+	    write(1, "\033[0m", 4);
 
     // padding (only if not last column)
     if (!is_last)
@@ -216,12 +224,16 @@ void ft_display_short_format_n_data_column(t_data *data, int start)
                 // color
                 if (arr[index]->is_dir)
                     write(1, "\033[94m", 5);
+		else if (arr[index]->is_exe_or_link == 2)
+                    write(1, "\033[36m", 5);
+		else if (arr[index]->is_exe_or_link == 1)
+                    write(1, "\033[32m", 5);
                 else if (name[0] == '.')
                     write(1, "\033[37m", 5);
 
                 write(1, name, len);
 
-                if (arr[index]->is_dir || name[0] == '.')
+                if (arr[index]->is_dir || name[0] == '.' || arr[index]->is_exe_or_link)
                     write(1, "\033[0m", 4);
 
                 // padding ONLY if not last column

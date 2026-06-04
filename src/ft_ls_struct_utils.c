@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 17:18:11 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/28 22:18:34 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/04 01:37:33 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,24 @@ t_short_format	*ft_add_new(char *data, size_t size, struct stat st, char *prnt_d
 		j++;
 	}
 	node->prnt_dir[j] = 0; 
-
-	if (S_ISDIR(st.st_mode))
-		node->is_dir = 1;
+	if (S_ISLNK(st.st_mode))
+	{
+	    node->is_dir = 0;
+	    node->is_exe_or_link = 2;
+	}
+	else if (S_ISDIR(st.st_mode))
+	{
+	    node->is_dir = 1;
+	    node->is_exe_or_link = 0;
+	}
 	else
-		node->is_dir = 0;
+	{
+	    node->is_dir = 0;
+	    if (st.st_mode & (S_IXUSR | S_IXGRP | S_IXOTH))
+		node->is_exe_or_link = 1;
+	    else
+		node->is_exe_or_link = 0;
+	}
 	node->next = NULL;
 	return (node);
 }

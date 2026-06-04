@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 00:24:48 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/03 20:41:26 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/04 00:13:48 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,7 @@ typedef struct	s_short_format
 	char			*data;
 	char			prnt_dir[256];
 	short			is_dir;
+	short			is_exe_or_link;
 	time_t  		raw_time;
 	struct s_short_format	*next;
 }		t_short_format;
@@ -71,6 +72,7 @@ typedef struct	s_long_format
 	char		filename[256];//limit 255
 	char		prnt_dir[256];//limit 255
 	short		is_dir;
+	short		is_exe_or_link;
 	size_t		total;
 	struct s_long_format	*next;
 }		t_long_format;
@@ -258,6 +260,11 @@ int     ft_cmp_time_dir_path(time_t a, time_t b);
 int     ft_sort_array_paths_by_time(t_data *data);
 int     ft_allocate_path_time(t_data *data);
 int     ft_sort_dirs_paths_by_time(t_data *data);
+
+//File : ft_set_exe_and_link_status.c 
+void    ft_set_exec_and_link_status_short(t_short_format *node, struct stat st);
+void    ft_set_exec_and_link_status_long(t_long_format *node, struct stat st);
+
 
 
 //----------------ft_printf
