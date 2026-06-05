@@ -1,10 +1,13 @@
 NAME= ft_ls.out
 
 SRCS=	./ft_add_cwd.c \
+	./ft_calcule_column_padding.c \
+	./ft_copy_and_count_args_opt.c \
 	./ft_copy_delete_args.c \
 	./ft_diplay_format.c \
 	./ft_display_format_column.c \
 	./ft_fill_permisions.c \
+	./ft_free_data.c \
 	./ft_get_files_and_check_errors.c \
 	./ft_get_options_and_check_errors.c \
 	./ft_get_paths_and_check_errors.c \

@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 23:24:26 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/04 01:41:31 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/04 21:53:48 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,10 @@ t_long_format   *ft_new_long_node_dir(t_data *data, char *entry_name, struct sta
 
         node = malloc(sizeof(t_long_format));
         if (!node)
+	{
+		ft_putstr_std("ft_ls: error, fail to allocate memory\n", 2);
                 return (NULL);
+	}
 
         node->links = st.st_nlink;
         node->size = st.st_size;
@@ -43,18 +46,15 @@ t_long_format   *ft_new_long_node_dir(t_data *data, char *entry_name, struct sta
                 i++;
         }
         node->prnt_dir[i] = '\0';
-	printf("node name %s   ", node->filename);
 	if (S_ISLNK(st.st_mode))
 	{
 	    node->is_dir = 0;
 	    node->is_exe_or_link = 2;
-		printf("enter 1 %d\n", node->is_exe_or_link);
 	}
 	else if (S_ISDIR(st.st_mode))
 	{
 	    node->is_dir = 1;
 	    node->is_exe_or_link = 0;
-		printf("enter 2 %d\n", node->is_exe_or_link);
 	}
 	else
 	{
@@ -63,7 +63,6 @@ t_long_format   *ft_new_long_node_dir(t_data *data, char *entry_name, struct sta
 		node->is_exe_or_link = 1;
 	    else
 		node->is_exe_or_link = 0;
-		printf("enter 3 %d\n", node->is_exe_or_link);
 	}
         return (node);
 }
@@ -77,7 +76,10 @@ t_long_format *ft_new_long_node(t_data *data, int i, struct stat st, char *prnt_
 
 	node = malloc(sizeof(t_long_format));
 	if (!node)
-		return (NULL);
+	{
+		ft_putstr_std("ft_ls: error, fail to allocate memory\n", 2);
+                return (NULL);
+	}
 
 	node->links = st.st_nlink;
 	node->size = st.st_size;
@@ -99,18 +101,15 @@ t_long_format *ft_new_long_node(t_data *data, int i, struct stat st, char *prnt_
 		j++;
 	}
 	node->prnt_dir[j] = '\0';
-	printf("node name %s   ", node->filename);
 	if (S_ISLNK(st.st_mode))
 	{
 	    node->is_dir = 0;
 	    node->is_exe_or_link = 2;
-		printf("enter 1 %d\n", node->is_exe_or_link);
 	}
 	else if (S_ISDIR(st.st_mode))
 	{
 	    node->is_dir = 1;
 	    node->is_exe_or_link = 0;
-		printf("enter 2 %d\n", node->is_exe_or_link);
 	}
 	else
 	{
@@ -119,7 +118,6 @@ t_long_format *ft_new_long_node(t_data *data, int i, struct stat st, char *prnt_
 		node->is_exe_or_link = 1;
 	    else
 		node->is_exe_or_link = 0;
-		printf("enter 3 %d\n", node->is_exe_or_link);
 	}
 	return (node);
 }
@@ -176,18 +174,6 @@ void	ft_long_add_back_at(t_long_format **node, t_long_format *new_node, int push
 	}
 	new_node->next = tmp->next;
 	tmp->next = new_node;
-}
-
-void	ft_free_long_format(t_long_format *lst)
-{
-	t_long_format *tmp;
-
-	while (lst)
-	{
-		tmp = lst->next;
-		free(lst);
-		lst = tmp;
-	}
 }
 
 int	ft_count_struct_elem_long(t_data *data)

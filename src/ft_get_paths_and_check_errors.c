@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/12 15:32:02 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/26 00:59:31 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/05 00:37:16 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 
 static int	ft_display_error(int err, char *av, t_data *data, int i)
 {
+	//printf("ft_display_error %s %d %d\n", av, err, i);
 	if (err == 1)
 	{
 		ft_putstr_std("ft_ls: cannot access '", 2);
@@ -49,19 +50,56 @@ int 	ft_check_if_its_a_dir(char *av, t_data *data, int i)
 			return (0);
 		else
 			return (ft_display_error(3, av, data, i));
+		printf("--\n");
 	}
 	else 
 		return (-1);
 	return (0);
 }
 
+void	ft_free_paths(t_data *data)
+{
+	//printf("ft_free_paths\n");
+	int	i;
+	if (data->paths.path == NULL)
+		return;
+	i = 0;
+	while (data->paths.path[i] && i < data->paths.nbr_of_paths)
+	{
+		if (data->paths.path[i])
+			free(data->paths.path[i]);
+		i++;
+	}
+	if (data->paths.path)
+		free(data->paths.path);
+	data->paths.path = NULL;
+}
 
-int	ft_check_this_arg_is_valid_path(t_data *data, char *av, int index)
+void	ft_free_until(char **arr, int index)
+{
+	int i;
+
+	i = 0;
+	if (arr == NULL)
+		return;
+	while (i < index)
+	{
+		if (arr[i])
+			free(arr[i]);
+		i++;
+	}
+	free(arr);
+}
+
+int	ft_check_this_arg_is_valid_path(t_data *data, char *av, int index, int *malloc_err)
 {
 	//printf("ft_check_this_arg_is_valid_path\n");
 	char    **new_paths;
 	int     i;
+	int     j;
+	char	*temp;
 
+	temp = NULL;
 	i = ft_check_if_its_a_dir(av, data, index);
 	if (i == -1)
 		return (0);
@@ -69,22 +107,43 @@ int	ft_check_this_arg_is_valid_path(t_data *data, char *av, int index)
 		return (1);
 	if (access(av, F_OK) != 0)
 		return (ft_display_error(1, av, data, index));
-	new_paths = malloc(sizeof(char *) * (data->paths.nbr_of_paths + 1));
-	if (!new_paths)
+	temp = ft_strdup(av);
+	if (temp == NULL)
+	{
+		*malloc_err = 1;
+		ft_free_paths(data);
 		return (ft_display_error(2, av, data, index));
+	}
+	new_paths = malloc(sizeof(char *) * (data->paths.nbr_of_paths + 2));
+	if (!new_paths)
+	{
+		*malloc_err = 1;
+		ft_free_paths(data);
+		return (ft_display_error(2, av, data, index));
+	}
 	i = 0;
 	while (i < data->paths.nbr_of_paths)
 	{
-		new_paths[i] = data->paths.path[i];
+		new_paths[i] = malloc(ft_strlen(data->paths.path[i]) + 1);
+		if (new_paths[i] == NULL)
+		{
+			ft_free_until(new_paths, i);
+			ft_free_paths(data);
+			*malloc_err = 1;
+			return (ft_display_error(2, av, data, index));
+		}
+		j = 0;
+		while (data->paths.path[i][j])
+		{
+			new_paths[i][j] = data->paths.path[i][j];
+			j++;
+		}
+		new_paths[i][j] = 0;
 		i++;
 	}
-	new_paths[i] = ft_strdup(av);
-	if (!new_paths[i])
-	{
-		free(new_paths);
-		return (ft_display_error(2, av, data, index));
-	}
-	free(data->paths.path);
+	new_paths[i] = temp;
+	new_paths[i + 1] = NULL;
+	ft_free_paths(data);
 	data->paths.path = new_paths;
 	data->paths.nbr_of_paths++;
 	return (0);
@@ -93,15 +152,19 @@ int	ft_check_this_arg_is_valid_path(t_data *data, char *av, int index)
 int	ft_get_paths_and_check_errors(char **av, t_data *data)
 {
 	//printf("ft_get_paths_and_check_errors\n");
-	int i;
+	int	i;
+	int	malloc_err;
 
+	malloc_err = 0;
 	i = 0;
 	while (av && av[i] != NULL)
 	{
 		if (av[i][0] != '-')
 		{
-			i -= ft_check_this_arg_is_valid_path(data, av[i], i);
-				
+			//printf("data now :%s \n", av[i]);
+			i -= ft_check_this_arg_is_valid_path(data, av[i], i, &malloc_err);
+			if (malloc_err)
+				return (1);
 		}
 		i++;
 	}

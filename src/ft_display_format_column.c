@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 21:08:29 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/04 02:17:48 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/04 20:43:00 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,103 +54,6 @@ void ft_display_short_format_column(t_data *data)
 	ft_display_short_format_n_data_column(data, 0);
 }
 
-void    ft_print_name(t_short_format *node, int max_len, int is_last)
-{
-    char    *name;
-    int     len;
-    int     pad;
-
-    name = (char *)node->data;
-    len = ft_strlen(name);
-
-	char *color = NULL;
-
-	if (node->is_dir)
-	    color = "\033[94m";
-	else if (node->is_exe_or_link == 2)
-	    color = "\033[31m";
-	else if (node->is_exe_or_link == 1)
-	    color = "\033[32m";
-	else if (name[0] == '.')
-	    color = "\033[37m";
-
-	if (color)
-	    write(1, color, 5);
-
-	write(1, name, ft_strlen(name));
-
-	if (color)
-	    write(1, "\033[0m", 4);
-
-    // padding (only if not last column)
-    if (!is_last)
-    {
-        pad = (max_len + 2) - len;
-        while (pad-- > 0)
-            write(1, "_", 1);
-    }
-}
-
-
-int ft_calculate_layout(
-    t_short_format **arr,
-    int count,
-    int term_width,
-    int *col_widths,
-    int *out_rows)
-{
-    int cols = count;
-    int rows;
-    int col, row, index;
-    int total_width;
-    int max;
-
-    while (cols > 0)
-    {
-        rows = (count + cols - 1) / cols;
-        total_width = 0;
-
-        col = 0;
-        while (col < cols)
-        {
-            max = 0;
-            row = 0;
-
-            while (row < rows)
-            {
-                index = col * rows + row;
-                if (index < count)
-                {
-                    int len = ft_strlen((char *)arr[index]->data);
-                    if (len > max)
-                        max = len;
-                }
-                row++;
-            }
-
-            // 🔥 KEY FIX HERE
-            if (col == cols - 1)
-                col_widths[col] = max;        // NO padding
-            else
-                col_widths[col] = max + 2;    // padding
-
-            total_width += col_widths[col];
-            col++;
-        }
-
-        if (total_width <= term_width)
-        {
-            *out_rows = rows;
-            return cols;
-        }
-
-        cols--;
-    }
-
-    *out_rows = count;
-    col_widths[0] = term_width;
-    return 1;
-}
 
 void ft_display_short_format_n_data_column(t_data *data, int start)
 {
@@ -201,7 +104,10 @@ void ft_display_short_format_n_data_column(t_data *data, int start)
     // allocate col widths
     col_widths = malloc(sizeof(int) * count);
     if (!col_widths)
+    {
+        free(arr);
         return;
+    }
 
     // compute layout
     cols = ft_calculate_layout(arr, count, term_width, col_widths, &rows);

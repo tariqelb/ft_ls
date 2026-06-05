@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/16 17:18:11 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/04 01:37:33 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/05 01:26:25 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,9 +20,11 @@ t_short_format	*ft_add_new(char *data, size_t size, struct stat st, char *prnt_d
 
 	node = (t_short_format *)malloc(sizeof(t_short_format));
 	if (!node)
+	{
+		ft_putstr_std("ft_ls: error, fail to allocate memory\n" ,2);
 		return (NULL);
-
-	node->data = malloc(size);
+	}
+	node->data = malloc(size + 1);
 	if (!node->data)
 	{
 		free(node);

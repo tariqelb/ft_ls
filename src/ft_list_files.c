@@ -37,7 +37,9 @@ int	ft_get_long_format(t_data *data, int f_index, struct stat st)
 	prnt_dir = ft_get_dir_path(data->files.file[f_index]);
 	new_file = ft_new_long_node(data, f_index, st, prnt_dir, 0);//total 0 for list files as expected
 	//printf("new %s \n", new_file->filename);
-	ft_long_add_back(&data->lng_format, new_file);
+	if (new_file)
+		ft_long_add_back(&data->lng_format, new_file);
+	free(prnt_dir);
 	return (0);
 }
 
@@ -52,7 +54,9 @@ int	ft_get_short_format(t_data *data, int f_index, struct stat st)
 	prnt_dir = ft_get_dir_path(data->files.file[f_index]);
 	new_file = ft_add_new(data->files.file[f_index], ft_strlen(data->files.file[f_index]), st, prnt_dir);
 	//printf("new %s \n", new_file->data);
-	ft_push_back(&data->shrt_format, new_file);	
+	if (new_file)
+		ft_push_back(&data->shrt_format, new_file);	
+	free(prnt_dir);
 	return (0);
 }
 

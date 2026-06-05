@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 00:24:48 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/04 00:13:48 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/05 00:34:28 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,20 +39,20 @@ typedef struct	s_options
 
 typedef struct	s_path
 {
-		char	**path;
-		time_t  *raw_time;
+		char	**path; //call free
+		time_t  *raw_time; //call free
 		int	nbr_of_paths;
 }		t_path;
 
 typedef struct	s_files
 {
-		char	**file;
+		char	**file; //call free
 		int	nbr_of_files;
 }		t_file;
 
 typedef struct	s_short_format
 {
-	char			*data;
+	char			*data; //call free
 	char			prnt_dir[256];
 	short			is_dir;
 	short			is_exe_or_link;
@@ -80,18 +80,25 @@ typedef struct	s_long_format
 typedef struct	s_data
 {
 		int		first_dir;
-		char		**args;
-		t_path		paths;
-		t_file		files;
+		char		**args;//call free
+		t_path		paths;//call free inside
+		t_file		files;//call free inside
 		t_options	opt;
-		t_short_format	*shrt_format;
-		t_long_format	*lng_format;
+		t_short_format	*shrt_format; //call free
+		t_long_format	*lng_format; //call free
 }		t_data;
 
 //File : ft_add_cwd.c
-void    ft_add_cwd_if_needed(t_data *data);
+int    ft_add_cwd_if_needed(t_data *data);
+
+//File: ft_copy_and_count_args_opt.c
+int	ft_count_opt_and_args(t_data *data, int ac, int args);
+int	ft_count_args(t_data data);
+int	ft_its_only_options(t_data *data);
 
 //File : ft_ls.c
+t_data	ft_initialize_data_struct(t_data data);
+//main()
 
 //File : ft_check_options_errors.c
 int	ft_get_options_and_check_errors(int ac, char **av, t_data *data);
@@ -100,11 +107,14 @@ int	ft_get_options_and_check_errors(int ac, char **av, t_data *data);
 int     ft_display_help(void);
 
 //File :  ft_get_paths_and_check_errors.c
-int     ft_check_this_arg_is_valid_path(t_data *data, char *av, int index);
+void    ft_free_paths(t_data *data);
+void    ft_free_until(char **arr, int index);
+int     ft_check_this_arg_is_valid_path(t_data *data, char *av, int index, int *malloc_err);
 int     ft_get_paths_and_check_errors(char **av, t_data *data);
 
 //File :  ft_get_files_and_check_errors.c
-int	ft_add_file(t_data *data, char *av, int index); 
+void    ft_free_files(t_data *data);
+int	ft_add_file(t_data *data, char *av, int index, int *malloc_err); 
 int     ft_get_files_and_check_errors(char **av, t_data *data);
 
 //File : ft_loop_over_options.c
@@ -264,6 +274,15 @@ int     ft_sort_dirs_paths_by_time(t_data *data);
 //File : ft_set_exe_and_link_status.c 
 void    ft_set_exec_and_link_status_short(t_short_format *node, struct stat st);
 void    ft_set_exec_and_link_status_long(t_long_format *node, struct stat st);
+
+
+//File : ft_calcule_column_padding.c
+int ft_get_col_max(t_short_format **arr, int count, int col, int rows);
+int ft_fill_col_widths(t_short_format **arr, int count, int cols, int rows, int *col_widths);
+int ft_calculate_layout(t_short_format **arr, int count, int term_width, int *col_widths, int *out_rows);
+
+//File : ft_free_data.c
+void ft_free_data(t_data *data);
 
 
 

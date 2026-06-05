@@ -26,7 +26,8 @@ int     ft_get_short_format_folder_at(t_data *data, char *entry_name, struct sta
                 && (ft_strcmp(entry_name, ".") == 0 || ft_strcmp(entry_name, "..") == 0 || entry_name[0] == '.' ))
                 return (0);
         new_file = ft_add_new(entry_name, ft_strlen(entry_name), st, p_dir);
-        ft_push_back_at(&data->shrt_format, new_file, at);
+		if (new_file)
+        	ft_push_back_at(&data->shrt_format, new_file, at);
         return (1);
 }
 
@@ -40,7 +41,8 @@ int     ft_get_long_format_folder_at(t_data *data, char *entry_name, struct stat
                 && (ft_strcmp(entry_name, ".") == 0 || ft_strcmp(entry_name, "..") == 0 || entry_name[0] == '.'))
                 return (0);
         new_file = ft_new_long_node_dir(data, entry_name, st, p_dir, total);
-        ft_long_add_back_at(&data->lng_format, new_file, at);
+		if (new_file)
+        	ft_long_add_back_at(&data->lng_format, new_file, at);
         return (1);
 }
 
@@ -89,6 +91,7 @@ int	ft_list_folder_long_format_at(t_data *data, char *filename, char *prnt_dir, 
 		free(path);
 	}
 	closedir(dir);
+	free(p_dir_path);
 	ft_display_total(data, total);
 	/*int new_long_len = ft_count_struct_elem_long(data);
 	if (data->opt.op_t_flag)
@@ -140,6 +143,7 @@ int	ft_list_folder_short_format_at(t_data *data, char *filename, char *prnt_dir,
 		free(path);
 	}
 	closedir(dir);
+	free(p_dir_path);
 	/*int new_short_len = ft_count_struct_elem_short(data);
 	if (data->opt.op_t_flag)
 		data = ft_sort_by_time_short_n_elem(data, short_len);
