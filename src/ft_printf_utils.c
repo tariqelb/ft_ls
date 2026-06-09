@@ -6,23 +6,23 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/11 00:52:57 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/17 23:07:55 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/08 01:30:01 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_ls.h"
 
-int     ft_putstr_std(char *str, int std)
+int	ft_putstr_std(char *str, int std)
 {
-        int     i;
+	int	i;
 
-        i = 0;
-        if (str == NULL)
-                return (0);
-        while (str[i])
-                i++;
-        write(std, str, i);
-        return (i);
+	i = 0;
+	if (str == NULL)
+		return (0);
+	while (str[i])
+		i++;
+	write(std, str, i);
+	return (i);
 }
 
 int	ft_puthex(unsigned int nbr, int flag, int std)
@@ -82,9 +82,9 @@ int	ft_putint(int nbr, int std)
 
 int	ft_put_size_t(size_t nbr, int std)
 {
-	char    tab[20];
-	int     i;
-	int     nb;
+	char	tab[20];
+	int		i;
+	int		nb;
 
 	i = 0;
 	if (nbr == 0)

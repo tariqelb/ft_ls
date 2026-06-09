@@ -6,15 +6,15 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/15 15:40:28 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/04 16:53:59 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/06 19:24:18 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_ls.h"
 
-int ft_remove_arg(t_data *data, int index)
+int	ft_remove_arg(t_data *data, int index)
 {
-	int i;
+	int	i;
 
 	if (!data->args || index < 0)
 		return (1);
@@ -30,24 +30,30 @@ int ft_remove_arg(t_data *data, int index)
 	return (0);
 }
 
-int ft_copy_args(int ac, char **av, t_data *data)
+int	ft_add_cwd_to_args(t_data *data)
 {
-	int i;
+	data->args = malloc(sizeof(char *) * 2);
+	if (!data->args)
+		return (1);
+	data->args[0] = ft_strdup(".");
+	data->args[1] = NULL;
+	return (0);
+}
+
+int	ft_copy_args(int ac, char **av, t_data *data)
+{
+	int	i;
 
 	data->args = NULL;
 	if (ac == 1)
 	{
-		data->args = malloc(sizeof(char *) * 2);
-		if (!data->args)
+		if (ft_add_cwd_to_args(data))
 			return (1);
-		data->args[0] = ft_strdup(".");
-		data->args[1] = NULL;
 		return (0);
 	}
 	data->args = malloc(sizeof(char *) * ac);
 	if (!data->args)
 		return (1);
-
 	i = 1;
 	while (i < ac)
 	{

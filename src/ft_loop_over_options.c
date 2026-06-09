@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 23:58:18 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/04 16:56:36 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/06 22:41:34 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ int	ft_set_option(char c, t_options *opt)
 
 int	ft_parse_option_arg(char *arg, t_data *data)
 {
-	int j;
+	int	j;
 
 	j = 1;
 	while (arg[j])
@@ -77,10 +77,10 @@ int	ft_free_args(t_data *data)
 
 int	ft_loop_over_options(int ac, char **av, t_data *data)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while (i < ac  - 1)
+	while (i < ac - 1)
 	{
 		if (av[i][0] == '-' && av[i][1] != '\0')
 		{

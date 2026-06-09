@@ -6,156 +6,96 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/02 21:08:29 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/04 20:43:00 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/09 16:35:27 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "./ft_ls.h"
 
-int ft_get_term_width(void)
+int	ft_prepare_layout(t_disp_ctx *ctx)
 {
-    struct winsize w;
+	t_cal_lay	lay;
+	int			term_width;
 
-    if (ioctl(1, TIOCGWINSZ, &w) == -1)
-        return (80); // fallback
-
-    return (w.ws_col);
+	term_width = ft_get_term_width();
+	ctx->col_widths = malloc(sizeof(int) * ctx->count);
+	if (!ctx->col_widths)
+		return (0);
+	lay.arr = ctx->arr;
+	lay.count = ctx->count;
+	lay.term_width = term_width;
+	lay.col_widths = ctx->col_widths;
+	lay.out_rows = &ctx->rows;
+	ctx->cols = ft_calculate_layout(&lay);
+	return (1);
 }
 
-int ft_get_max_len(t_short_format *list)
+void	ft_print_cell(t_disp_ctx *ctx, int index, int col)
 {
-    int max = 0;
-    int len;
+	char	*name;
+	int		len;
+	int		pad;
 
-    while (list)
-    {
-        len = ft_strlen((char *)list->data);
-        if (len > max)
-            max = len;
-        list = list->next;
-    }
-    return (max);
+	name = (char *)ctx->arr[index]->data;
+	len = ft_strlen(name);
+	if (ctx->arr[index]->is_dir)
+		write(1, "\033[94m", 5);
+	else if (ctx->arr[index]->is_exe_or_link == 2)
+		write(1, "\033[36m", 5);
+	else if (ctx->arr[index]->is_exe_or_link == 1)
+		write(1, "\033[32m", 5);
+	else if (name[0] == '.')
+		write(1, "\033[37m", 5);
+	write(1, name, len);
+	if (ctx->arr[index]->is_dir || name[0] == '.'
+		|| ctx->arr[index]->is_exe_or_link)
+		write(1, "\033[0m", 4);
+	if (col < ctx->cols - 1)
+	{
+		pad = ctx->col_widths[col] - len;
+		while (pad-- > 0)
+			write(1, " ", 1);
+	}
 }
 
-int ft_list_size(t_short_format *list)
+void	ft_print_grid(t_disp_ctx *ctx)
 {
-    int count = 0;
+	int	row;
+	int	col;
+	int	index;
 
-    while (list)
-    {
-        count++;
-        list = list->next;
-    }
-    return (count);
+	row = 0;
+	while (row < ctx->rows)
+	{
+		col = 0;
+		while (col < ctx->cols)
+		{
+			index = col * ctx->rows + row;
+			if (index < ctx->count)
+				ft_print_cell(ctx, index, col);
+			col++;
+		}
+		write(1, "\n", 1);
+		row++;
+	}
 }
 
-void ft_display_short_format_column(t_data *data)
+void	ft_display_short_format_n_data_column(t_data *data, int start)
 {
-	ft_display_short_format_n_data_column(data, 0);
-}
+	t_short_format	*tmp;
+	t_disp_ctx		ctx;
 
-
-void ft_display_short_format_n_data_column(t_data *data, int start)
-{
-    t_short_format *tmp;
-    t_short_format **arr;
-    int *col_widths;
-
-    int count;
-    int i, row, col;
-    int term_width;
-    int cols, rows;
-    int index;
-
-    if (!data || !data->shrt_format)
-        return;
-
-    // skip start
-    tmp = data->shrt_format;
-    i = 0;
-    while (tmp && i++ < start)
-        tmp = tmp->next;
-
-    // count
-    count = 0;
-    t_short_format *save = tmp;
-    while (tmp && ++count)
-        tmp = tmp->next;
-
-    if (count == 0)
-        return;
-
-    // array
-    arr = malloc(sizeof(t_short_format *) * count);
-    if (!arr)
-        return;
-
-    tmp = save;
-    i = 0;
-    while (tmp)
-    {
-        arr[i++] = tmp;
-        tmp = tmp->next;
-    }
-
-    // terminal
-    term_width = ft_get_term_width();
-
-    // allocate col widths
-    col_widths = malloc(sizeof(int) * count);
-    if (!col_widths)
-    {
-        free(arr);
-        return;
-    }
-
-    // compute layout
-    cols = ft_calculate_layout(arr, count, term_width, col_widths, &rows);
-
-    // PRINT (column-first)
-    row = 0;
-    while (row < rows)
-    {
-        col = 0;
-        while (col < cols)
-        {
-            index = col * rows + row;
-
-            if (index < count)
-            {
-                char *name = (char *)arr[index]->data;
-                int len = ft_strlen(name);
-                int pad;
-
-                // color
-                if (arr[index]->is_dir)
-                    write(1, "\033[94m", 5);
-		else if (arr[index]->is_exe_or_link == 2)
-                    write(1, "\033[36m", 5);
-		else if (arr[index]->is_exe_or_link == 1)
-                    write(1, "\033[32m", 5);
-                else if (name[0] == '.')
-                    write(1, "\033[37m", 5);
-
-                write(1, name, len);
-
-                if (arr[index]->is_dir || name[0] == '.' || arr[index]->is_exe_or_link)
-                    write(1, "\033[0m", 4);
-
-                // padding ONLY if not last column
-                if (col < cols - 1)
-                {
-                    pad = col_widths[col] - len;
-                    while (pad-- > 0)
-                        write(1, " ", 1);
-                }
-            }
-            col++;
-        }
-        write(1, "\n", 1);
-        row++;
-    }
-
-    free(col_widths);
-    free(arr);
+	if (!data || !data->shrt_format)
+		return ;
+	tmp = data->shrt_format;
+	while (tmp && start-- > 0)
+		tmp = tmp->next;
+	ctx.arr = ft_build_array(tmp, &ctx.count);
+	if (!ctx.arr)
+		return ;
+	if (!ft_prepare_layout(&ctx))
+		return (free(ctx.arr));
+	ft_print_grid(&ctx);
+	free(ctx.col_widths);
+	free(ctx.arr);
 }

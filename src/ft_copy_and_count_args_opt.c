@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/04 15:44:47 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/04 15:45:38 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/05 23:38:11 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	ft_count_args(t_data data)
 
 int	ft_its_only_options(t_data *data)
 {
-	int 	i;
+	int	i;
 	int	flag;
 
 	flag = 0;
@@ -46,7 +46,7 @@ int	ft_its_only_options(t_data *data)
 
 int	ft_count_opt_and_args(t_data *data, int ac, int args)
 {
-	int res;
+	int	res;
 
 	res = ac - 1 - data->opt.nbr_of_opt;
 	if (args == 0 && res > 0)

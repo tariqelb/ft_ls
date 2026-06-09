@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 00:24:48 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/05 00:34:28 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/09 16:34:30 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,13 +80,72 @@ typedef struct	s_long_format
 typedef struct	s_data
 {
 		int		first_dir;
+		int		i;
+		int		j;
 		char		**args;//call free
 		t_path		paths;//call free inside
 		t_file		files;//call free inside
 		t_options	opt;
 		t_short_format	*shrt_format; //call free
 		t_long_format	*lng_format; //call free
+		
 }		t_data;
+
+typedef struct s_dir
+{
+	DIR             *dir;
+	struct dirent   *entry;
+	struct stat     st;
+	char            *path;
+	size_t          total;
+}		t_dir;
+
+typedef struct s_fol_at
+{
+	DIR             *dir;
+	struct dirent   *entry;
+	struct stat     st;
+	char            *path;
+	size_t          total;
+	char            *p_dir_path;
+	int             nbr_of_elem;
+}		t_fol_at;
+
+typedef struct	s_join_info
+{
+    size_t  len_dir;
+    size_t  len_file;
+    int     need_slash;
+}		t_join_info;
+
+typedef struct	s_new_node_dir
+{
+	char *entry_name;
+	struct stat st;
+	char *prnt_dir;
+	size_t total;
+}		t_new_node_dir;
+
+typedef struct s_cal_lay
+{
+        t_short_format  **arr;
+        int             count;
+        int             term_width;
+        int             *col_widths;
+        int             *out_rows;
+}       t_cal_lay;
+
+typedef struct s_disp_ctx
+{
+    t_short_format  **arr;
+    int             *col_widths;
+    int             count;
+    int             cols;
+    int             rows;
+}   t_disp_ctx;
+
+//File : ft_add_cwd_util.c
+int     ft_is_an_option(char *arg);
 
 //File : ft_add_cwd.c
 int    ft_add_cwd_if_needed(t_data *data);
@@ -106,15 +165,26 @@ int	ft_get_options_and_check_errors(int ac, char **av, t_data *data);
 //File : ft_display_errors.c
 int     ft_display_help(void);
 
+//File : ft_check_this_arg_is_valid_path.c
+/*static int      ft_display_error(int err, char *av, t_data *data, int i);
+static int      ft_handle_pre_checks(t_data *data, char *av, int index);
+static char     *ft_safe_strdup_path(t_data *data, char *av, int index, int *malloc_err);
+static char     **ft_copy_old_paths(t_data *data, char *av, int index, int *malloc_err);*/
+int     ft_check_this_arg_is_valid_path(t_data *data, char *av, int index, int *malloc_err);
+
 //File :  ft_get_paths_and_check_errors.c
 void    ft_free_paths(t_data *data);
 void    ft_free_until(char **arr, int index);
+int     ft_check_if_its_a_dir(char *av, t_data *data, int i);
 int     ft_check_this_arg_is_valid_path(t_data *data, char *av, int index, int *malloc_err);
 int     ft_get_paths_and_check_errors(char **av, t_data *data);
 
+//File: ft_add_files.c
+int	ft_add_file(t_data *data, char *av, int index, int *malloc_err); 
+
 //File :  ft_get_files_and_check_errors.c
 void    ft_free_files(t_data *data);
-int	ft_add_file(t_data *data, char *av, int index, int *malloc_err); 
+int     ft_check_filename_length(char *av);
 int     ft_get_files_and_check_errors(char **av, t_data *data);
 
 //File : ft_loop_over_options.c
@@ -130,9 +200,12 @@ char    *ft_strdup(char *s);
 size_t  ft_strlen(char *s);
 char    *ft_strcpy(char *dest, const char *src);
 int     ft_strcmp(char *s1, char *s2);
-char    *ft_join_parrent_dir(char *filename, char *parrent_dir);
+
+//File : ft_ls_utils_four.c
 char    *ft_get_dir_path(char *filepath);
 
+//File : ft_ls_utils_three.c
+char    *ft_join_parrent_dir(char *filename, char *parrent_dir);
 void    *ft_memcpy(void *dest, void *src, size_t n);
 
 //File : ft_copy_delete_args.c
@@ -150,8 +223,8 @@ void    ft_push_back_at(t_short_format **node, t_short_format *new_node, int pus
 //File: ft_ls_struct_utils_two.c
 void    ft_free_long_format(t_long_format *lst);
 void	ft_long_add_back(t_long_format **lst, t_long_format *new_node);
-t_long_format   *ft_new_long_node(t_data *data, int i, struct stat st, char *prnt_dir, size_t total);
-t_long_format   *ft_new_long_node_dir(t_data *data, char *entry_name, struct stat st, char *prnt_dir, size_t total);
+t_long_format   *ft_new_long_node(t_data *data, int i, struct stat st, char *prnt_dir);
+t_long_format   *ft_new_long_node_dir(t_data *data, t_new_node_dir new_data);
 int     ft_count_struct_elem_short(t_data *data);
 int     ft_count_struct_elem_long(t_data *data);
 void    ft_long_add_back_at(t_long_format **node, t_long_format *new_node, int push_at);
@@ -170,10 +243,15 @@ int     ft_get_short_format(t_data *data, int f_index, struct stat st);
 int     ft_list_single_file(t_data *data, int f_index);
 int     ft_list_files(t_data *data);
 
+//File : ft_iter_till_new_data_long_forma.c
+int     ft_iterate_recursion_long_format(t_data *data, int we_reach);
+
+//File : ft_iter_till_new_data_short_forma.c
+int     ft_iterate_recursion_short_format(t_data *data, int we_reach);
 
 //File: ft_start_listing.c
-int     ft_iterate_recursion_long_format(t_data *data, int we_reach);
-int     ft_iterate_recursion_short_format(t_data *data, int we_reach);
+t_short_format  *ft_iter_till_new_data_short(t_data *data, int we_reach);
+t_long_format   *ft_iter_till_new_data_long(t_data *data, int we_reach);
 int     ft_start_listing(t_data *data);
 
 //File: ft_get_time_and_owner.c 
@@ -188,7 +266,17 @@ void    ft_display_short_format_n_data(t_data *data, int len);
 void    ft_display_long_format_n_to_m_data(t_data *data, int start, int end);
 void    ft_display_short_format_n_to_m_data(t_data *data, int start, int end);
 
-void	ft_display_short_format_column(t_data *data);
+//File : ft_display_format_column_two.c
+int     ft_get_term_width(void);
+int     ft_get_max_len(t_short_format *list);
+int     ft_list_size(t_short_format *list);
+void    ft_display_short_format_column(t_data *data);
+t_short_format  **ft_build_array(t_short_format *start, int *count);
+
+//File : ft_display_format_column.c
+int     ft_prepare_layout(t_disp_ctx *ctx);
+void    ft_print_cell(t_disp_ctx *ctx, int index, int col);
+void    ft_print_grid(t_disp_ctx *ctx);
 void    ft_display_short_format_n_data_column(t_data *data, int start);
 
 //File: ft_list_directories.c
@@ -198,14 +286,14 @@ int     ft_list_dir(t_data *data, int d_index);
 int     ft_list_directories(t_data *data);
 
 //File: ft_list_folder_long.c
-int     ft_get_long_format_folder(t_data *data, char *entry_name, struct stat st, char *p_dir, size_t total);
-int     ft_get_short_format_folder(t_data *data, char *entry_name, struct stat st, char *p_dir);
-int     ft_list_folder_long_format(t_data *data, char *filename, char *prnt_dir);
-int     ft_list_folder_short_format(t_data *data, char *filename, char *prnt_dir);
+//int     ft_get_long_format_folder(t_data *data, char *entry_name, struct stat st, char *p_dir, size_t total);
+//int     ft_get_short_format_folder(t_data *data, char *entry_name, struct stat st, char *p_dir);
+//int     ft_list_folder_long_format(t_data *data, char *filename, char *prnt_dir);
+//int     ft_list_folder_short_format(t_data *data, char *filename, char *prnt_dir);
 
 //File : ft_list_folder_at.c
-int     ft_get_short_format_folder_at(t_data *data, char *entry_name, struct stat st, char *p_dir, int at);
-int     ft_get_long_format_folder_at(t_data *data, char *entry_name, struct stat st, char *p_dir, size_t total, int at);
+//int     ft_get_short_format_folder_at(t_data *data, char *entry_name, struct stat st, char *p_dir, int at);
+//int     ft_get_long_format_folder_at(t_data *data, char *entry_name, struct stat st, char *p_dir, size_t total, int at);
 int     ft_list_folder_long_format_at(t_data *data, char *filename, char *prnt_dir, int i);
 int     ft_list_folder_short_format_at(t_data *data, char *filename, char *prnt_dir, int i);
 
@@ -213,16 +301,13 @@ int     ft_list_folder_short_format_at(t_data *data, char *filename, char *prnt_
 //File: ft_ls_sort_format.c
 t_data	*ft_sort_short_format(t_data *data, int len);
 t_data	*ft_sort_long_format(t_data *data, int len);
+//File : ft_sort_all_data_long_short.c
 t_data *ft_sort_long_format_all_data(t_data *data);
 t_data *ft_sort_short_format_all_data(t_data *data);
 
 //File : ft_ls_sort_data.c
 void    ft_swap_short_data(t_short_format *a, t_short_format *b);
 void    ft_swap_long_data(t_long_format *a, t_long_format *b);
-t_long_format *ft_get_start_long(t_long_format *head, int long_len);
-t_short_format *ft_get_start_short(t_short_format *head, int short_len);
-t_data *ft_sort_format_data_from_elem_n_short(t_data *data, int long_len);
-t_data *ft_sort_format_data_from_elem_n_long(t_data *data, int long_len);
 
 //File: ft_print_dir_path_and_total.c
 int     ft_print_folder_path(t_data *data, char *path);
@@ -237,13 +322,13 @@ void    ft_print_padded_size(size_t size, int max_width);
 
 //File: ft_sort_by_time_short_n_elem.c
 int     ft_cmp_time_short(t_data *data, t_short_format *a, t_short_format *b);
-int     ft_cmp_time_short_R_flag(t_data *data, t_short_format *a, t_short_format *b);
+int     ft_cmp_time_short_upper_r_flag(t_data *data, t_short_format *a, t_short_format *b);
 t_data  *ft_sort_by_time_short_n_elem(t_data *data, int short_len, int file);
 
 
 //File: ft_sort_by_time_long_n_elem.c
 int     ft_cmp_time(t_data *data, t_long_format *a, t_long_format *b);
-int     ft_cmp_time_R_flag(t_data *data, t_long_format *a, t_long_format *b);
+int     ft_cmp_time_upper_r_flag(t_data *data, t_long_format *a, t_long_format *b);
 t_data  *ft_sort_by_time_long_n_elem(t_data *data, int long_len, int file);
 
 //File : ft_sort_by_time_short_all_data.c
@@ -277,13 +362,52 @@ void    ft_set_exec_and_link_status_long(t_long_format *node, struct stat st);
 
 
 //File : ft_calcule_column_padding.c
-int ft_get_col_max(t_short_format **arr, int count, int col, int rows);
-int ft_fill_col_widths(t_short_format **arr, int count, int cols, int rows, int *col_widths);
-int ft_calculate_layout(t_short_format **arr, int count, int term_width, int *col_widths, int *out_rows);
+int     ft_get_col_max(t_cal_lay *lay, int col, int rows);
+int     ft_fill_col_widths(t_cal_lay *lay, int cols, int rows);
+int     ft_calculate_layout(t_cal_lay *lay);
+
+//File : ft_free_data_util.c
+void ft_free_str_array(char **arr);
+void ft_free_str_array_index(char **arr, int index);
+void ft_free_paths_data(t_path *paths, int index);
+void ft_free_files_data(t_file *files, int index);
 
 //File : ft_free_data.c
 void ft_free_data(t_data *data);
 
+//File : ft_get_long_short_format_dir.c
+int     ft_get_long_format_dir(t_data *data, char *entry_name, int d_index, struct stat st);
+int     ft_get_short_format_dir(t_data *data, char *entry_name, int d_index, struct stat st);
+
+//File : ft_list_dir.c
+int	ft_loop_over_dirs(t_data *data, t_dir *dir, int d_index);
+int	ft_list_dir(t_data *data, int d_index);
+
+//File : ft_list_directories_utils.c
+t_data	*ft_resort_for_recursion(t_data *data, int we_reach);
+void	ft_handle_recursion(t_data *data, int we_reach);
+int	ft_update_we_reach(t_data *data);
+
+
+//File : ft_get_long_short_file.c
+int     ft_get_short_format(t_data *data, int f_index, struct stat st);
+int     ft_get_long_format(t_data *data, int f_index, struct stat st);
+char    ft_check_is_hiden_file(char *path_file);
+
+//File : ft_get_long_short_format_folder_at.c
+int     ft_get_long_format_folder_at(t_data *data, t_fol_at *f);
+int     ft_get_short_format_folder_at(t_data *data, t_fol_at *f);
+//File : ft_get_long_short_format_folder.c
+int	ft_get_short_format_folder(t_data *data, t_fol_at *f);
+int	ft_get_long_format_folder(t_data *data, t_fol_at *f);
+
+//File : ft_sort_format_data_from_elem_n_long.c
+t_data  *ft_sort_format_data_from_elem_n_long(t_data *data, int long_len);
+t_long_format   *ft_get_start_long(t_long_format *head, int long_len);
+
+//File : ft_sort_format_data_from_elem_n_short.c
+t_data  *ft_sort_format_data_from_elem_n_short(t_data *data, int short_len);
+t_short_format  *ft_get_start_short(t_short_format *head, int short_len);
 
 
 //----------------ft_printf

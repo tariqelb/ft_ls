@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/28 21:44:54 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/05/28 21:46:17 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/09 01:45:29 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,9 +48,7 @@ void	ft_print_padded_size(size_t size, int max_width)
 
 	len = ft_numlen(size);
 	padding = max_width - len;
-
 	while (padding-- > 0)
 		write(1, " ", 1);
-
 	ft_put_size_t(size, 1);
 }
