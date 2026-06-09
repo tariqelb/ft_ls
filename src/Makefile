@@ -9,7 +9,6 @@ SRCS=	./ft_add_cwd.c \
 	./ft_check_this_arg_is_valid_path.c \
 	./ft_copy_and_count_args_opt.c \
 	./ft_copy_delete_args.c \
-	./ft_diplay_format.c \
 	./ft_display_format_column.c \
 	./ft_display_format_column_two.c \
 	./ft_display_long_format.c \
@@ -63,7 +62,8 @@ SRCS=	./ft_add_cwd.c \
 	./ft_sort_format_data_from_n_elem_short.c \
 	./ft_sort_from_n_to_m_elem_long.c \
 	./ft_sort_from_n_to_m_elem_short.c \
-	./ft_start_listing.c
+	./ft_start_listing.c \
+	./ft_strcat.c
 
 FLAGS= -Werror -Wextra -Wall
 

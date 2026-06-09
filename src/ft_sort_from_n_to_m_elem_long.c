@@ -14,15 +14,16 @@
 
 static void	ft_copy_long_content(t_long_format *dst, t_long_format *src)
 {
-	memcpy(dst->permission, src->permission, 11);
+	ft_memcpy(dst->permission, src->permission, 11);
 	dst->links = src->links;
-	memcpy(dst->user, src->user, 33);
-	memcpy(dst->grop, src->grop, 33);
+	ft_memcpy(dst->user, src->user, 33);
+	ft_memcpy(dst->grop, src->grop, 33);
 	dst->size = src->size;
 	dst->raw_time = src->raw_time;
-	memcpy(dst->time, src->time, 13);
-	memcpy(dst->filename, src->filename, 256);
-	memcpy(dst->prnt_dir, src->prnt_dir, 256);
+	ft_memcpy(dst->time, src->time, 13);
+	ft_memcpy(dst->filename, src->filename, 256);
+	ft_strcpy(dst->link_file, src->link_file);
+	ft_memcpy(dst->prnt_dir, src->prnt_dir, 256);
 	dst->is_dir = src->is_dir;
 	dst->total = src->total;
 	dst->is_exe_or_link = src->is_exe_or_link;

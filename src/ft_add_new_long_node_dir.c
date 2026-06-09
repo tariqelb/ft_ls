@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 00:42:30 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/09 01:36:05 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/09 23:29:05 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,27 @@ void	ft_set_dir_flags(t_long_format *node, struct stat st)
 t_long_format	*ft_new_long_node_dir(t_data *data, t_new_node_dir new_data)
 {
 	t_long_format	*node;
+	char			full_path[PATH_MAX];
 
-	(void)data;
-	(void)new_data.total;
 	node = ft_create_long_node_dir();
 	if (!node)
 		return (NULL);
 	ft_fill_dir_stat(node, new_data.st);
 	ft_fill_dir_names(node, new_data);
 	ft_set_dir_flags(node, new_data.st);
+	if (node->is_exe_or_link == 2)
+	{
+		ft_bzero(node->link_file, PATH_MAX);
+		ft_strcpy(full_path, new_data.prnt_dir);
+		ft_strcat(full_path, "/");
+		ft_strcat(full_path, new_data.entry_name);
+		data->i = readlink(full_path, node->link_file, PATH_MAX - 1);
+		if (data->i != -1)
+			node->link_file[data->i] = '\0';
+		else
+			node->link_file[0] = '\0';
+	}
+	else
+		node->link_file[0] = '\0';
 	return (node);
 }

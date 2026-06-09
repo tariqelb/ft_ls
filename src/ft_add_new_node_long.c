@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 00:44:13 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/09 01:04:19 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/09 23:31:19 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ t_long_format	*ft_new_long_node(t_data *data, int i,
 			struct stat st, char *prnt_dir)
 {
 	t_long_format	*node;
+	char			full_path[PATH_MAX];
 
 	node = ft_create_long_node();
 	if (!node)
@@ -86,5 +87,19 @@ t_long_format	*ft_new_long_node(t_data *data, int i,
 	if (!ft_fill_names(node, data->files.file[i], prnt_dir))
 		return (free(node), NULL);
 	ft_set_type_flags(node, st);
+	if (node->is_exe_or_link == 2)
+	{
+		ft_bzero(node->link_file, PATH_MAX);
+		ft_strcpy(full_path, prnt_dir);
+		ft_strcat(full_path, "/");
+		ft_strcat(full_path, data->files.file[i]);
+		data->i = readlink(full_path, node->link_file, PATH_MAX - 1);
+		if (data->i != -1)
+			node->link_file[data->i] = '\0';
+		else
+			node->link_file[0] = '\0';
+	}
+	else
+		node->link_file[0] = '\0';
 	return (node);
 }

@@ -15,7 +15,7 @@
 static void	ft_copy_short_content(t_short_format *dst, t_short_format *src)
 {
 	dst->data = src->data;
-	memcpy(dst->prnt_dir, src->prnt_dir, 256);
+	ft_memcpy(dst->prnt_dir, src->prnt_dir, 256);
 	dst->is_dir = src->is_dir;
 	dst->raw_time = src->raw_time;
 	dst->is_exe_or_link = src->is_exe_or_link;

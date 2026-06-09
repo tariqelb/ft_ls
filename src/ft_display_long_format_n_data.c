@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/06 18:01:51 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/06 19:15:08 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/09 23:24:13 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,8 @@ static void	ft_print_long_name(t_long_format *tmp)
 	{
 		write(1, "\033[36m", 5);
 		write(1, tmp->filename, ft_strlen(tmp->filename));
+		write(1, " -> ", 4);
+		write(1, tmp->link_file, ft_strlen(tmp->link_file));
 		write(1, "\033[0m", 4);
 	}
 	else if (tmp->is_exe_or_link == 1)

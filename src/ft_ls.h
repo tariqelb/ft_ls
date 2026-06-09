@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 00:24:48 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/09 16:34:30 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/09 23:36:11 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,8 @@
 # include <string.h>
 # include <stddef.h>
 # include <sys/ioctl.h>
+# include <limits.h> 
+# include <stddef.h>
 
 typedef struct	s_options
 {
@@ -39,20 +41,20 @@ typedef struct	s_options
 
 typedef struct	s_path
 {
-		char	**path; //call free
-		time_t  *raw_time; //call free
-		int	nbr_of_paths;
+	char	**path;
+	time_t  *raw_time;
+	int	nbr_of_paths;
 }		t_path;
 
 typedef struct	s_files
 {
-		char	**file; //call free
-		int	nbr_of_files;
+	char	**file;
+	int	nbr_of_files;
 }		t_file;
 
 typedef struct	s_short_format
 {
-	char			*data; //call free
+	char			*data;
 	char			prnt_dir[256];
 	short			is_dir;
 	short			is_exe_or_link;
@@ -62,33 +64,33 @@ typedef struct	s_short_format
 
 typedef struct	s_long_format
 {
-	char		permission[11];
-	size_t		links;
-	char		user[33];//limit 32
-	char		grop[33];//limit 32
-	size_t		size;
-	time_t  	raw_time;
-	char		time[13];
-	char		filename[256];//limit 255
-	char		prnt_dir[256];//limit 255
-	short		is_dir;
-	short		is_exe_or_link;
-	size_t		total;
+	char			permission[11];
+	size_t			links;
+	char			user[33];
+	char			grop[33];
+	size_t			size;
+	time_t  		raw_time;
+	char			time[13];
+	char			filename[256];
+	char			link_file[PATH_MAX];
+	char			prnt_dir[256];
+	short			is_dir;
+	short			is_exe_or_link;
+	size_t			total;
 	struct s_long_format	*next;
 }		t_long_format;
 
 typedef struct	s_data
 {
-		int		first_dir;
-		int		i;
-		int		j;
-		char		**args;//call free
-		t_path		paths;//call free inside
-		t_file		files;//call free inside
-		t_options	opt;
-		t_short_format	*shrt_format; //call free
-		t_long_format	*lng_format; //call free
-		
+	int		first_dir;
+	int		i;
+	int		j;
+	char		**args;
+	t_path		paths;
+	t_file		files;
+	t_options	opt;
+	t_short_format	*shrt_format;
+	t_long_format	*lng_format;
 }		t_data;
 
 typedef struct s_dir
@@ -166,10 +168,6 @@ int	ft_get_options_and_check_errors(int ac, char **av, t_data *data);
 int     ft_display_help(void);
 
 //File : ft_check_this_arg_is_valid_path.c
-/*static int      ft_display_error(int err, char *av, t_data *data, int i);
-static int      ft_handle_pre_checks(t_data *data, char *av, int index);
-static char     *ft_safe_strdup_path(t_data *data, char *av, int index, int *malloc_err);
-static char     **ft_copy_old_paths(t_data *data, char *av, int index, int *malloc_err);*/
 int     ft_check_this_arg_is_valid_path(t_data *data, char *av, int index, int *malloc_err);
 
 //File :  ft_get_paths_and_check_errors.c
@@ -286,14 +284,6 @@ int     ft_list_dir(t_data *data, int d_index);
 int     ft_list_directories(t_data *data);
 
 //File: ft_list_folder_long.c
-//int     ft_get_long_format_folder(t_data *data, char *entry_name, struct stat st, char *p_dir, size_t total);
-//int     ft_get_short_format_folder(t_data *data, char *entry_name, struct stat st, char *p_dir);
-//int     ft_list_folder_long_format(t_data *data, char *filename, char *prnt_dir);
-//int     ft_list_folder_short_format(t_data *data, char *filename, char *prnt_dir);
-
-//File : ft_list_folder_at.c
-//int     ft_get_short_format_folder_at(t_data *data, char *entry_name, struct stat st, char *p_dir, int at);
-//int     ft_get_long_format_folder_at(t_data *data, char *entry_name, struct stat st, char *p_dir, size_t total, int at);
 int     ft_list_folder_long_format_at(t_data *data, char *filename, char *prnt_dir, int i);
 int     ft_list_folder_short_format_at(t_data *data, char *filename, char *prnt_dir, int i);
 
@@ -301,6 +291,7 @@ int     ft_list_folder_short_format_at(t_data *data, char *filename, char *prnt_
 //File: ft_ls_sort_format.c
 t_data	*ft_sort_short_format(t_data *data, int len);
 t_data	*ft_sort_long_format(t_data *data, int len);
+
 //File : ft_sort_all_data_long_short.c
 t_data *ft_sort_long_format_all_data(t_data *data);
 t_data *ft_sort_short_format_all_data(t_data *data);
@@ -409,7 +400,6 @@ t_long_format   *ft_get_start_long(t_long_format *head, int long_len);
 t_data  *ft_sort_format_data_from_elem_n_short(t_data *data, int short_len);
 t_short_format  *ft_get_start_short(t_short_format *head, int short_len);
 
-
 //----------------ft_printf
 
 int	ft_put_unsignedint(unsigned int nbr, int std);
@@ -418,8 +408,9 @@ int	ft_puthex(unsigned int nbr, int flag, int std);
 int	ft_putstr_std(char *str, int std);
 int     ft_put_size_t(size_t nbr, int std);
 
+//File : ft_strcat.c
+char    *ft_strcat(char *dest, const char *src);
+void    ft_put_str(char *str);
+void    ft_bzero(void *s, size_t n);
 
-
-
-//
 #endif
