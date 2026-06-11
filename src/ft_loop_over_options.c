@@ -32,7 +32,7 @@ int	ft_set_option(char c, t_options *opt)
 	else if (c == 't')
 		ft_set_flag(&opt->op_t_flag, opt);
 	else if (c == 'R')
-		ft_set_flag(&opt->op_R_flag, opt);
+		ft_set_flag(&opt->op_rr_flag, opt);
 	else
 		return (1);
 	return (0);

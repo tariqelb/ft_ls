@@ -17,7 +17,7 @@ static int	ft_compare_and_swap_data(t_data *data,
 {
 	int	cmp;
 
-	if (data->opt.op_R_flag)
+	if (data->opt.op_r_flag)
 		cmp = ft_cmp_time_upper_r_flag(data, cur, cur->next);
 	else
 		cmp = ft_cmp_time(data, cur, cur->next);

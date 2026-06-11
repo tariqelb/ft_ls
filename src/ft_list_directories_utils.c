@@ -21,7 +21,7 @@ t_data	*ft_resort_for_recursion(t_data *data, int we_reach)
 
 void	ft_handle_recursion(t_data *data, int we_reach)
 {
-	if (!data->opt.op_R_flag)
+	if (!data->opt.op_rr_flag)
 		return ;
 	if (data->opt.op_l_flag)
 		ft_iterate_recursion_long_format(data, we_reach);

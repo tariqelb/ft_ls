@@ -42,7 +42,7 @@ int	ft_list_dir(t_data *data, int d_index)
 	if (!dir.dir)
 		return (1);
 	if (data->paths.nbr_of_paths > 1
-		|| data->opt.op_R_flag
+		|| data->opt.op_rr_flag
 		|| data->files.nbr_of_files)
 		ft_print_folder_path(data, data->paths.path[d_index]);
 	if (data->opt.op_l_flag)
