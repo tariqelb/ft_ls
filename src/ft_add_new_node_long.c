@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/09 00:44:13 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/09 23:31:19 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/11 20:33:41 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ void	ft_fill_stat_info(t_long_format *node, struct stat st)
 {
 	node->links = st.st_nlink;
 	node->size = st.st_size;
+	node->raw_time = st.st_mtime;
 	ft_fill_permissions(node->permission, st.st_mode);
 	ft_fill_owner(node, &st);
 	ft_fill_time(node->time, st.st_mtime);

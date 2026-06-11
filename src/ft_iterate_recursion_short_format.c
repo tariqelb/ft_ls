@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/06/08 01:38:21 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/08 01:44:55 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/06/11 21:20:23 by tel-bouh         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,7 @@ int	ft_iterate_recursion_short_format(t_data *data, int we_reach)
 	{
 		ft_process_dir_short(data, temp, i);
 		temp = temp->next;
+		len = ft_count_struct_elem_short(data);
 		i++;
 	}
 	return (0);
