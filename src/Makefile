@@ -1,4 +1,4 @@
-NAME= ft_ls.out
+NAME= ft_ls
 
 SRCS=	./ft_add_cwd.c \
 	./ft_add_cwd_util.c \
@@ -65,11 +65,24 @@ SRCS=	./ft_add_cwd.c \
 	./ft_start_listing.c \
 	./ft_strcat.c
 
-FLAGS= -Werror -Wextra -Wall
+OBJS = $(SRCS:.c=.o)
 
-all:
-	gcc $(FLAGS) -o ${NAME} ${SRCS}
+CC = gcc
 
-fclean:
-	/bin/rm -rf ${NAME}
+CFLAGS = -Wall -Wextra -Werror
 
+all: $(NAME) #clean
+
+$(NAME): $(OBJS)
+	$(CC) -o $(NAME) -I . $(OBJS)
+
+%.o: %.c
+	$(CC) $(CFLAGS) -c $< -o $@
+
+clean:
+	rm -f $(OBJS)
+
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all
