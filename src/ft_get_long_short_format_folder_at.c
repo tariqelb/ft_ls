@@ -28,8 +28,11 @@ int	ft_get_long_format_folder_at(t_data *data, t_fol_at *f)
 	new_data.total = f->total;
 	new_file = ft_new_long_node_dir(data, new_data);
 	if (new_file)
+	{
 		ft_long_add_back_at(&data->lng_format, new_file, data->i);
-	return (1);
+		return (1);
+	}
+	return (0);
 }
 
 int	ft_get_short_format_folder_at(t_data *data, t_fol_at *f)

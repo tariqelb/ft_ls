@@ -31,6 +31,8 @@ void	ft_fill_dir_stat(t_long_format *node, struct stat st)
 	node->links = st.st_nlink;
 	node->size = st.st_size;
 	node->raw_time = st.st_mtime;
+	node->tv.tv_sec = st.st_mtim.tv_sec;
+	node->tv.tv_usec = st.st_mtim.tv_nsec / 1000;
 	ft_fill_permissions(node->permission, st.st_mode);
 	ft_fill_owner(node, &st);
 	ft_fill_time(node->time, st.st_mtime);
@@ -90,9 +92,9 @@ t_long_format	*ft_new_long_node_dir(t_data *data, t_new_node_dir new_data)
 		ft_strcpy(full_path, new_data.prnt_dir);
 		ft_strcat(full_path, "/");
 		ft_strcat(full_path, new_data.entry_name);
-		data->i = readlink(full_path, node->link_file, PATH_MAX - 1);
-		if (data->i != -1)
-			node->link_file[data->i] = '\0';
+		data->j = readlink(full_path, node->link_file, PATH_MAX - 1);
+		if (data->j != -1)
+			node->link_file[data->j] = '\0';
 		else
 			node->link_file[0] = '\0';
 	}

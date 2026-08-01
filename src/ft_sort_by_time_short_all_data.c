@@ -32,8 +32,8 @@ static int	ft_should_swap_short(t_data *data,
 			t_short_format *cur)
 {
 	if (data->opt.op_r_flag)
-		return (!ft_cmp_time_short(data, cur, cur->next));
-	return (ft_cmp_time_short(data, cur, cur->next));
+		return (!ft_cmp_time_short_tv(data, cur, cur->next));
+	return (ft_cmp_time_short_tv(data, cur, cur->next));
 }
 
 t_data	*ft_sort_by_time_short_all_data(t_data *data)

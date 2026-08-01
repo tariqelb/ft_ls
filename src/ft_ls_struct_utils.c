@@ -91,6 +91,8 @@ t_short_format	*ft_add_new(char *data, size_t size,
 		return (NULL);
 	}
 	node->raw_time = st.st_mtime;
+	node->tv.tv_sec = st.st_mtim.tv_sec;
+	node->tv.tv_usec = st.st_mtim.tv_nsec / 1000;
 	ft_fill_parent_dir(node, prnt_dir);
 	ft_fill_type(node, st);
 	node->next = NULL;

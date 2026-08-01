@@ -31,6 +31,8 @@ void	ft_fill_stat_info(t_long_format *node, struct stat st)
 	node->links = st.st_nlink;
 	node->size = st.st_size;
 	node->raw_time = st.st_mtime;
+	node->tv.tv_sec = st.st_mtim.tv_sec;
+	node->tv.tv_usec = st.st_mtim.tv_nsec / 1000;
 	ft_fill_permissions(node->permission, st.st_mode);
 	ft_fill_owner(node, &st);
 	ft_fill_time(node->time, st.st_mtime);

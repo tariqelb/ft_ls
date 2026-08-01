@@ -20,9 +20,10 @@ static void	ft_copy_long_content(t_long_format *dst, t_long_format *src)
 	ft_memcpy(dst->grop, src->grop, 33);
 	dst->size = src->size;
 	dst->raw_time = src->raw_time;
+	dst->tv = src->tv;
 	ft_memcpy(dst->time, src->time, 13);
 	ft_memcpy(dst->filename, src->filename, 256);
-	ft_strcpy(dst->link_file, src->link_file);
+	ft_memcpy(dst->link_file, src->link_file, 256);
 	ft_memcpy(dst->prnt_dir, src->prnt_dir, 256);
 	dst->is_dir = src->is_dir;
 	dst->total = src->total;
@@ -44,6 +45,26 @@ void	ft_swap_long_data(t_long_format *a, t_long_format *b)
 	b->next = next_b;
 }
 
+static int      ft_compare_and_swap(t_data *data, t_long_format *cur, int *swapped)
+{
+        if (data->opt.op_r_flag
+                && ft_strcmp(cur->filename, cur->next->filename) < 0)
+        {
+                ft_swap_long_data(cur, cur->next);
+                *swapped = 1;
+                return (1);
+        }
+        else if (data->opt.op_r_flag == 0
+                && ft_strcmp(cur->filename, cur->next->filename) > 0)
+        {
+                ft_swap_long_data(cur, cur->next);
+                *swapped = 1;
+                return (1);
+        }
+        return (0);
+}
+
+
 t_data	*ft_sort_format_data_from_elem_n_to_m_long(t_data *data,
 		int long_len, int end)
 {
@@ -61,12 +82,14 @@ t_data	*ft_sort_format_data_from_elem_n_to_m_long(t_data *data,
 		i = long_len;
 		while (cur && cur->next && i < long_len + end - 1)
 		{
-			if (ft_strcmp(cur->filename, cur->next->filename) > 0)
+			/*if (ft_strcmp(cur->filename, cur->next->filename) > 0)
 			{
 				ft_swap_long_data(cur, cur->next);
 				swapped = 1;
 				break ;
-			}
+			}*/
+			if (ft_compare_and_swap(data, cur, &swapped))
+				 break ;
 			cur = cur->next;
 			i++;
 		}

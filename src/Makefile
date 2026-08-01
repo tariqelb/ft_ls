@@ -7,6 +7,8 @@ SRCS=	./ft_add_cwd.c \
 	./ft_add_new_node_long.c \
 	./ft_calcule_column_padding.c \
 	./ft_check_this_arg_is_valid_path.c \
+	./ft_cmp_time_with_timeval.c \
+	./ft_cmp_time_with_timeval_short.c \
 	./ft_copy_and_count_args_opt.c \
 	./ft_copy_delete_args.c \
 	./ft_display_format_column.c \
@@ -71,7 +73,7 @@ CC = gcc
 
 CFLAGS = -Wall -Wextra -Werror
 
-all: $(NAME) #clean
+all: $(NAME) clean
 
 $(NAME): $(OBJS)
 	$(CC) -o $(NAME) -I . $(OBJS)

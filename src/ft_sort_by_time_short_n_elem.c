@@ -61,9 +61,9 @@ static int	ft_compare_swap_data(t_data *data,
 	int	cmp;
 
 	if (file)
-		cmp = ft_cmp_time_short_upper_r_flag(data, cur, cur->next);
+		cmp = ft_cmp_time_short_upper_r_flag_tv(data, cur, cur->next);
 	else
-		cmp = ft_cmp_time_short(data, cur, cur->next);
+		cmp = ft_cmp_time_short_tv(data, cur, cur->next);
 	if (data->opt.op_r_flag && cmp == 0)
 	{
 		ft_swap_short_data(cur, cur->next);

@@ -18,9 +18,9 @@ static int	ft_compare_and_swap_data(t_data *data,
 	int	cmp;
 
 	if (data->opt.op_r_flag)
-		cmp = ft_cmp_time_upper_r_flag(data, cur, cur->next);
+		cmp = ft_cmp_time_upper_r_flag_tv(data, cur, cur->next);
 	else
-		cmp = ft_cmp_time(data, cur, cur->next);
+		cmp = ft_cmp_time_tv(data, cur, cur->next);
 	if (data->opt.op_r_flag && cmp == 0)
 	{
 		ft_swap_long_data(cur, cur->next);

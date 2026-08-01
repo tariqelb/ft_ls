@@ -14,6 +14,13 @@
 
 t_data	*ft_resort_for_recursion(t_data *data, int we_reach)
 {
+	if (data->opt.op_t_flag)
+	{
+		if (data->opt.op_l_flag)
+			return (ft_sort_by_time_long_n_elem(data, we_reach, 0));
+		else
+			return (ft_sort_by_time_short_n_elem(data, we_reach, 0));
+	}
 	if (data->opt.op_l_flag)
 		return (ft_sort_format_data_from_elem_n_long(data, we_reach));
 	return (ft_sort_format_data_from_elem_n_short(data, we_reach));

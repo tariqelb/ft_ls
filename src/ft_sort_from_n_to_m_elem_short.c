@@ -18,6 +18,7 @@ static void	ft_copy_short_content(t_short_format *dst, t_short_format *src)
 	ft_memcpy(dst->prnt_dir, src->prnt_dir, 256);
 	dst->is_dir = src->is_dir;
 	dst->raw_time = src->raw_time;
+	dst->tv = src->tv;
 	dst->is_exe_or_link = src->is_exe_or_link;
 }
 
@@ -34,6 +35,25 @@ void	ft_swap_short_data(t_short_format *a, t_short_format *b)
 	ft_copy_short_content(b, &tmp);
 	a->next = next_a;
 	b->next = next_b;
+}
+
+static int      ft_compare_and_swap(t_data *data, t_short_format *cur, int *swapped)
+{
+        if (data->opt.op_r_flag
+                && ft_strcmp(cur->data, cur->next->data) < 0)
+        {
+                ft_swap_short_data(cur, cur->next);
+                *swapped = 1;
+                return (1);
+        }
+        else if (data->opt.op_r_flag == 0
+                && ft_strcmp(cur->data, cur->next->data) > 0)
+        {
+                ft_swap_short_data(cur, cur->next);
+                *swapped = 1;
+                return (1);
+        }
+        return (0);
 }
 
 t_data	*ft_sort_format_data_from_elem_n_to_m_short(t_data *data,
@@ -53,12 +73,15 @@ t_data	*ft_sort_format_data_from_elem_n_to_m_short(t_data *data,
 		i = short_len;
 		while (cur && cur->next && i < short_len + end - 1)
 		{
-			if (ft_strcmp(cur->data, cur->next->data) > 0)
+			/*if (ft_strcmp(cur->data, cur->next->data) > 0)
 			{
 				ft_swap_short_data(cur, cur->next);
 				swapped = 1;
 				break ;
-			}
+			}*/
+			if (ft_compare_and_swap(data, cur, &swapped))
+				break ;
+
 			cur = cur->next;
 			i++;
 		}
