@@ -21,7 +21,8 @@ int	ft_print_folder_path(t_data *data, char *path)
 		if (data->first_dir)
 			ft_putstr_std("\n", 1);
 		ft_putstr_std(path, 1);
-		if (data->opt.op_rr_flag || data->paths.nbr_of_paths > 1)
+		if (data->opt.op_rr_flag || data->paths.nbr_of_paths > 1 ||
+			data->opt.op_l_flag)
 			ft_putstr_std(":", 1);
 		ft_putstr_std("\n", 1);
 		data->first_dir = 1;
