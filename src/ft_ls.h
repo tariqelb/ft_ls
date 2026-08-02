@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/10 00:24:48 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/11 01:04:13 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/08/02 21:53:07 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ typedef struct s_short_format
 	short					is_dir;
 	short					is_exe_or_link;
 	time_t					raw_time;
-	struct timeval				tv;
+	struct timeval			tv;
 	struct s_short_format	*next;
 }		t_short_format;
 
@@ -70,7 +70,7 @@ typedef struct s_long_format
 	char					user[33];
 	char					grop[33];
 	size_t					size;
-	struct timeval				tv;
+	struct timeval			tv;
 	time_t					raw_time;
 	char					time[13];
 	char					filename[256];
@@ -420,11 +420,15 @@ t_data			*ft_sort_by_time_long_n_to_m_elem(t_data *data,
 t_data			*ft_sort_by_time_short_all_data(t_data *data);
 
 //File: ft_cmp_time_with_timeval.c
-int     ft_cmp_time_tv(t_data *data, t_long_format *a, t_long_format *b);
-int     ft_cmp_time_upper_r_flag_tv(t_data *data, t_long_format *a, t_long_format *b);
+int				ft_cmp_time_tv(t_data *data, t_long_format *a,
+					t_long_format *b);
+int				ft_cmp_time_upper_r_flag_tv(t_data *data,
+					t_long_format *a, t_long_format *b);
 //File: ft_cmp_time_with_timeval.c
-int     ft_cmp_time_short_tv(t_data *data, t_short_format *a, t_short_format *b);
-int     ft_cmp_time_short_upper_r_flag_tv(t_data *data, t_short_format *a, t_short_format *b);
+int				ft_cmp_time_short_tv(t_data *data,
+					t_short_format *a, t_short_format *b);
+int				ft_cmp_time_short_upper_r_flag_tv(t_data *data,
+					t_short_format *a, t_short_format *b);
 
 //File : ft_sort_by_time_short_n_elem.c
 int				ft_cmp_time_short(t_data *data,

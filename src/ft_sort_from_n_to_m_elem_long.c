@@ -6,7 +6,7 @@
 /*   By: tel-bouh <tariqelbouhali039@gmail.com>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2026/05/30 22:58:03 by tel-bouh          #+#    #+#             */
-/*   Updated: 2026/06/08 22:35:06 by tel-bouh         ###   ########.fr       */
+/*   Updated: 2026/08/02 21:42:18 by tariq            ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,25 +45,24 @@ void	ft_swap_long_data(t_long_format *a, t_long_format *b)
 	b->next = next_b;
 }
 
-static int      ft_compare_and_swap(t_data *data, t_long_format *cur, int *swapped)
+static int	ft_compare_and_swap(t_data *data, t_long_format *cur, int *swapped)
 {
-        if (data->opt.op_r_flag
-                && ft_strcmp(cur->filename, cur->next->filename) < 0)
-        {
-                ft_swap_long_data(cur, cur->next);
-                *swapped = 1;
-                return (1);
-        }
-        else if (data->opt.op_r_flag == 0
-                && ft_strcmp(cur->filename, cur->next->filename) > 0)
-        {
-                ft_swap_long_data(cur, cur->next);
-                *swapped = 1;
-                return (1);
-        }
-        return (0);
+	if (data->opt.op_r_flag
+		&& ft_strcmp(cur->filename, cur->next->filename) < 0)
+	{
+		ft_swap_long_data(cur, cur->next);
+		*swapped = 1;
+		return (1);
+	}
+	else if (data->opt.op_r_flag == 0
+		&& ft_strcmp(cur->filename, cur->next->filename) > 0)
+	{
+		ft_swap_long_data(cur, cur->next);
+		*swapped = 1;
+		return (1);
+	}
+	return (0);
 }
-
 
 t_data	*ft_sort_format_data_from_elem_n_to_m_long(t_data *data,
 		int long_len, int end)
@@ -82,14 +81,8 @@ t_data	*ft_sort_format_data_from_elem_n_to_m_long(t_data *data,
 		i = long_len;
 		while (cur && cur->next && i < long_len + end - 1)
 		{
-			/*if (ft_strcmp(cur->filename, cur->next->filename) > 0)
-			{
-				ft_swap_long_data(cur, cur->next);
-				swapped = 1;
-				break ;
-			}*/
 			if (ft_compare_and_swap(data, cur, &swapped))
-				 break ;
+				break ;
 			cur = cur->next;
 			i++;
 		}
